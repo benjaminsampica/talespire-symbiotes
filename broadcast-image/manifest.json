@@ -1,0 +1,29 @@
+{
+  "manifestVersion": 1,
+  "name": "Broadcast Images",
+  "entryPoint": "/broadcast-image.html",
+  "summary": "string", 
+  "descriptionFilePath": "/README.md", 
+  "license": "MIT", 
+  "about": {
+    "website": "https://github.com/benjaminsampica/talespire-symbiotes", 
+    "authors": [ 
+      "Ben Sampica"
+    ]
+  },
+  "version": "1.0",
+  "api": {
+    "version": "0.1",
+    "interop": {
+      "id": "6063e63e-bc68-45b2-985d-2205c6ddd8c3"
+    }
+  },
+  "environment": {
+    "webViewBackgroundColor": "#000000",
+    "extras": [
+      "fonts",
+      "icons",
+      "colorStyles"
+    ]
+  }
+}
