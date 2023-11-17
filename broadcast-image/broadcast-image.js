@@ -5,7 +5,7 @@ async function onBroadcastImageAsync() {
     IsValidImage(inputUrl, (isValid) => {
         if (isValid) {
             document.getElementById("broadcasted-image").src = inputUrl;
-            TS.sync.multiSend(inputUrl);
+            TS.sync.send(inputUrl, "board");
         }
     });
 }
