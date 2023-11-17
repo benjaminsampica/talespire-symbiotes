@@ -4,11 +4,11 @@
   "entryPoint": "/broadcast-image.html",
   "summary": "A quick way to broadcast images to all players.",
   "version": "0.0.1",
-  "descriptionFilePath": "/README.md", 
-  "license": "MIT", 
+  "descriptionFilePath": "/README.md",
+  "license": "MIT",
   "about": {
-    "website": "https://github.com/benjaminsampica/talespire-symbiotes", 
-    "authors": [ 
+    "website": "https://github.com/benjaminsampica/talespire-symbiotes",
+    "authors": [
       "Ben Sampica"
     ]
   },
@@ -18,9 +18,8 @@
       "id": "6063e63e-bc68-45b2-985d-2205c6ddd8c3"
     },
     "subscriptions": {
-      "symbiote": {
-        "onVisibilityEvent": "logSymbioteEvent",
-        "onStateChangeEvent": "logSymbioteEvent"
+      "sync": {
+        "onSyncMessage": "handleSyncEvents"
       }
     }
   },

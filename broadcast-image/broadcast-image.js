@@ -4,14 +4,13 @@ async function onBroadcastImageAsync() {
     let inputUrl = document.getElementById("input-image").value;
     IsValidImage(inputUrl, (isValid) => {
         if (isValid) {
-            document.getElementById("broadcasted-image").src = inputUrl;
             TS.sync.send(inputUrl, "board");
         }
     });
 }
 
-function onSyncMessage(syncMessageReceived) {
-    document.getElementById("broadcasted-image").src = syncMessageReceived.message;
+async function handleSyncEvents(event) {
+    document.getElementById("broadcasted-image").src = event.payload.str;
 }
 
 function IsValidImage(url, callback) {
