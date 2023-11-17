@@ -13,5 +13,10 @@ async function onBroadcastImageAsync()
 
     document.getElementById("broadcasted-image").src = inputUrl;
 
-    TS.sync();
+    TS.sync.send(inputUrl);
+}
+
+function onSyncMessage(syncMessageReceived)
+{
+    document.getElementById("broadcasted-image").src = syncMessageReceived.message;
 }

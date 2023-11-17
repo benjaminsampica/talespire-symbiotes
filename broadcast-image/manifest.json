@@ -2,7 +2,8 @@
   "manifestVersion": 1,
   "name": "Broadcast Images",
   "entryPoint": "/broadcast-image.html",
-  "summary": "string", 
+  "summary": "A quick way to broadcast images to all players.",
+  "version": "0.0.1",
   "descriptionFilePath": "/README.md", 
   "license": "MIT", 
   "about": {
@@ -11,12 +12,21 @@
       "Ben Sampica"
     ]
   },
-  "version": "1.0",
   "api": {
     "version": "0.1",
     "interop": {
       "id": "6063e63e-bc68-45b2-985d-2205c6ddd8c3"
+    },
+    "subscriptions": {
+      "symbiote": {
+        "onVisibilityEvent": "logSymbioteEvent",
+        "onStateChangeEvent": "logSymbioteEvent"
+      }
     }
+  },
+  "controls": {
+    "navigation": true,
+    "reload": true
   },
   "environment": {
     "webViewBackgroundColor": "#000000",
@@ -24,6 +34,9 @@
       "fonts",
       "icons",
       "colorStyles"
+    ],
+    "capabilities": [
+      "runInBackground"
     ]
   }
 }
