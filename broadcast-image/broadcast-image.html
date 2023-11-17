@@ -13,9 +13,9 @@
 <body>
     <h1>Choose a public image to broadcast to all players</h1>
     <form>
-        <input type="text" required id="input-image" placeholder="https://i.imgur.com/YPN2KBP.jpg">
+        <input type="text" style="width: 100%;" required id="input-image" placeholder="https://i.imgur.com/YPN2KBP.jpg">
         <button onclick="onBroadcastImageAsync()">Broadcast</button>
-        <input type="reset" value="Reset">
+        <button onclick="reset()">Reset</button>
     </form>
 
     <img class="broadcasted-image" id="broadcasted-image" src="" />
