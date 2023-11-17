@@ -1,22 +1,30 @@
-async function onBroadcastImageAsync()
-{
+async function onBroadcastImageAsync() {
     document.getElementById("invalid-state").classList.add("d-none");
 
-    var inputUrl = document.getElementById("input-image").value;
-    var isValidUrl = isValidUrl();
-
-    if(!isValidUrl)
-    {
-        document.getElementById("invalid-state").classList.remove("d-none");
-        return;
-    }
-
-    document.getElementById("broadcasted-image").src = inputUrl;
-
-    TS.sync.send(inputUrl);
+    isImage(document.getElementById("input-image").value, (isValid) => {
+        if (isValid) {
+            document.getElementById("broadcasted-image").src = inputUrl;
+            TS.sync.send(inputUrl);
+        }
+    });
 }
 
-function onSyncMessage(syncMessageReceived)
-{
+function onSyncMessage(syncMessageReceived) {
     document.getElementById("broadcasted-image").src = syncMessageReceived.message;
+}
+
+function isImage(url, callback) {
+    var img = new Image();
+    img.onload = () => {
+        callback(true);
+    };
+    img.onerror = () => {
+        callback(false);
+        setInvalidState();
+    };
+    img.src = url;
+}
+
+function setInvalidState() {
+    document.getElementById("invalid-state").classList.remove("d-none");
 }
