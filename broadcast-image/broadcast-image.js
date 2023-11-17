@@ -1,7 +1,8 @@
 async function onBroadcastImageAsync() {
     document.getElementById("invalid-state").classList.add("d-none");
 
-    isImage(document.getElementById("input-image").value, (isValid) => {
+    let inputUrl = document.getElementById("input-image").value;
+    isImage(inputUrl, (isValid) => {
         if (isValid) {
             document.getElementById("broadcasted-image").src = inputUrl;
             TS.sync.send(inputUrl);
