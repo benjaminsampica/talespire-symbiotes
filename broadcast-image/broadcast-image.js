@@ -32,4 +32,5 @@ function reset() {
 
 function setInvalidState() {
     document.getElementById("invalid-state").classList.remove("d-none");
+    document.getElementById("broadcasted-image").src = "";
 }
