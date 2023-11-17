@@ -2,10 +2,10 @@ async function onBroadcastImageAsync() {
     document.getElementById("invalid-state").classList.add("d-none");
 
     let inputUrl = document.getElementById("input-image").value;
-    isImage(inputUrl, (isValid) => {
+    IsValidImage(inputUrl, (isValid) => {
         if (isValid) {
             document.getElementById("broadcasted-image").src = inputUrl;
-            TS.sync.send(inputUrl);
+            TS.sync.multiSend(inputUrl);
         }
     });
 }
@@ -14,15 +14,23 @@ function onSyncMessage(syncMessageReceived) {
     document.getElementById("broadcasted-image").src = syncMessageReceived.message;
 }
 
-function isImage(url, callback) {
+function IsValidImage(url, callback) {
     var img = new Image();
+
     img.onload = () => {
-        callback(true);
+        if (url.length <= 400) {
+            callback(true);
+        }
+        else {
+            callback(false);
+        }
     };
+
     img.onerror = () => {
         callback(false);
         setInvalidState();
     };
+
     img.src = url;
 }
 

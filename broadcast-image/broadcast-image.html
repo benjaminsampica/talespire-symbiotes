@@ -3,15 +3,15 @@
 
 <head>
     <title>
-        <i class="ts-icon-broadcast"></span>
-            Broadcast Images
+        <i class="ts-icon-broadcast"></i>
+        Broadcast Images
     </title>
     <link rel="stylesheet" href="broadcast-image.css">
     <script src="broadcast-image.js"></script>
 </head>
 
 <body>
-    <h1>Choose a public image to broadcast to all players</h1>
+    <h1><i class="ts-icon-broadcast"></i>Broadcast Images</h1>
     <input type="text" style="width: 100%; margin-bottom: 5px;" required id="input-image"
         placeholder="https://i.imgur.com/YPN2KBP.jpg">
     <button onclick="onBroadcastImageAsync()">Broadcast</button>
@@ -19,7 +19,7 @@
     <div id="invalid-state">
         <h3>
             <i class="ts-icon-warning"></i>
-            The url entered is missing or invalid.
+            The url entered is missing or invalid. Links must be less than 400 characters.
         </h3>
     </div>
     <img class="broadcasted-image" id="broadcasted-image" src="" />
