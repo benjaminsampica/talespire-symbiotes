@@ -26,6 +26,10 @@ function isImage(url, callback) {
     img.src = url;
 }
 
+function reset() {
+    document.getElementById("input-image").value = "";
+}
+
 function setInvalidState() {
     document.getElementById("invalid-state").classList.remove("d-none");
 }
