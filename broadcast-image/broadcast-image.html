@@ -12,19 +12,17 @@
 
 <body>
     <h1>Choose a public image to broadcast to all players</h1>
-    <form>
-        <input type="text" style="width: 100%; margin-bottom: 5px;" required id="input-image"
-            placeholder="https://i.imgur.com/YPN2KBP.jpg">
-        <button onclick="onBroadcastImageAsync()">Broadcast</button>
-        <button onclick="reset()">Reset</button>
-    </form>
-
-    <img class="broadcasted-image" id="broadcasted-image" src="" />
+    <input type="text" style="width: 100%; margin-bottom: 5px;" required id="input-image"
+        placeholder="https://i.imgur.com/YPN2KBP.jpg">
+    <button onclick="onBroadcastImageAsync()">Broadcast</button>
+    <button onclick="reset()">Reset</button>
     <div id="invalid-state">
-        <i class="ts-icon-warning"></i>
-        <h4>The url entered is missing or invalid.</h4>
+        <h3>
+            <i class="ts-icon-warning"></i>
+            The url entered is missing or invalid.
+        </h3>
     </div>
-
+    <img class="broadcasted-image" id="broadcasted-image" src="" />
 </body>
 
 </html>

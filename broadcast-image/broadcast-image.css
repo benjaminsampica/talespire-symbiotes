@@ -7,13 +7,19 @@ body {
     padding: 10px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin-bottom: 0.2em;
 }
 
 .broadcasted-image {
-    width: 100%; 
+    width: 100%;
     height: auto;
+    margin-top: .5rem;
 }
 
 .ts-icon-warning {
@@ -25,7 +31,8 @@ h1, h2, h3, h4, h5, h6 {
     display: none;
 }
 
-button, input {
+button,
+input {
     background-color: var(--ts-background-secondary);
     color: var(--ts-color-primary);
     font-family: 'OptimusPrinceps', sans-serif;
@@ -37,12 +44,14 @@ button, input {
     transition: ease-in-out 0.1s;
 }
 
-button:hover, input:hover {
+button:hover,
+input:hover {
     background-color: var(--ts-button-hover);
     transition: ease-in-out 0.2s;
 }
 
-button:focus-visible, input:focus-visible {
+button:focus-visible,
+input:focus-visible {
     outline: 3px solid var(--ts-accessibility-focus);
     outline-offset: -1px;
     background-color: var(--ts-button-hover);
