@@ -32,7 +32,7 @@ async function validateImageAsync(url) {
         return validationResult;
     }
 
-    const isImage = await loadImage(url);
+    const isImage = await loadImageAsync(url);
 
     if (!isImage) {
         validationResult.message = `Could not interpret the given link as an image.`
@@ -43,7 +43,7 @@ async function validateImageAsync(url) {
     return validationResult;
 }
 
-async function loadImage(url) {
+async function loadImageAsync(url) {
     const image = new Image();
     image.src = url;
     const isImage = await new Promise(resolve => {

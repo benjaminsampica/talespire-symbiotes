@@ -45,10 +45,6 @@ button:focus-visible {
     background-color: var(--ts-button-hover);
 }
 
-.broadcasted-image {
-    margin-top: 5px;
-}
-
 .d-none {
     display: none;
 }

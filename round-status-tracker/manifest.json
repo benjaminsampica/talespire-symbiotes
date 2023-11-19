@@ -1,0 +1,40 @@
+{
+  "manifestVersion": 1,
+  "name": "5E Round & Status Tracker",
+  "entryPoint": "/broadcast-image.html",
+  "summary": "An opinionated round and status tracker for DM's playing 5E D&D.",
+  "version": "0.0.1",
+  "descriptionFilePath": "/README.md",
+  "license": "MIT",
+  "about": {
+    "website": "https://github.com/benjaminsampica/talespire-symbiotes",
+    "authors": [
+      "Ben Sampica"
+    ]
+  },
+  "api": {
+    "version": "0.1",
+    "interop": {
+      "id": "61bc4d69-814e-4069-8a75-96a80c28837e"
+    }
+  },
+  "controls": {
+    "navigation": true,
+    "reload": true
+  },
+  "icons": {
+    "64x64": "/64x64.png",
+    "notification": "/notification.png"
+  },
+  "environment": {
+    "webViewBackgroundColor": "#000000",
+    "extras": [
+      "fonts",
+      "icons",
+      "colorStyles"
+    ],
+    "capabilities": [
+      "runInBackground"
+    ]
+  }
+}
