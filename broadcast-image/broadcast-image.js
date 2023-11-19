@@ -1,5 +1,3 @@
-const image = new Image();
-
 async function onBroadcastImageAsync() {
     document.getElementById("invalid-state").classList.add("d-none");
 
@@ -8,9 +6,6 @@ async function onBroadcastImageAsync() {
 
     if (validationResult.isValid) {
         TS.sync.send(inputUrl, "board");
-        const imageElement = document.getElementById("broadcasted-image");
-        imageElement.style.height = image.height;
-        imageElement.style.width = image.width;
     }
     else {
         setInvalidState(validationResult.message);
@@ -49,11 +44,13 @@ async function validateImageAsync(url) {
 }
 
 async function loadImage(url) {
+    const image = new Image();
     image.src = url;
     const isImage = await new Promise(resolve => {
         image.onload = () => resolve(true);
         image.onerror = () => resolve(false);
     });
+
     return isImage;
 }
 
