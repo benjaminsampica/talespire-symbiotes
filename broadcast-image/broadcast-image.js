@@ -58,7 +58,7 @@ async function loadImage(url) {
 }
 
 function reset() {
-    document.getElementById("input-image").src = "";
+    document.getElementById("input-image").value = "";
     document.getElementById("broadcasted-image").src = "";
     document.getElementById("invalid-state").classList.add("d-none");
 }
