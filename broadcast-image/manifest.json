@@ -27,6 +27,10 @@
     "navigation": true,
     "reload": true
   },
+  "icons": {
+    "64x64": "/64x64.png",
+    "notification": "/notification.png"
+  },
   "environment": {
     "webViewBackgroundColor": "#000000",
     "extras": [

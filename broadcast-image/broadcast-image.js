@@ -1,43 +1,70 @@
+const image = new Image();
+
 async function onBroadcastImageAsync() {
     document.getElementById("invalid-state").classList.add("d-none");
 
-    let inputUrl = document.getElementById("input-image").value;
-    IsValidImage(inputUrl, (isValid) => {
-        if (isValid) {
-            TS.sync.send(inputUrl, "board");
-        }
-    });
+    const inputUrl = document.getElementById("input-image").value;
+    var validationResult = await validateImageAsync(inputUrl);
+
+    if (validationResult.isValid) {
+        TS.sync.send(inputUrl, "board");
+        const imageElement = document.getElementById("broadcasted-image");
+        imageElement.style.height = image.height;
+        imageElement.style.width = image.width;
+    }
+    else {
+        setInvalidState(validationResult.message);
+    }
 }
 
 async function handleSyncEvents(event) {
     document.getElementById("broadcasted-image").src = event.payload.str;
 }
 
-function IsValidImage(url, callback) {
-    var img = new Image();
+async function validateImageAsync(url) {
+    const validationResult = {
+        message: ``,
+        isValid: false
+    }
 
-    img.onload = () => {
-        if (url.length <= 400) {
-            callback(true);
-        }
-        else {
-            callback(false);
-        }
-    };
+    if (url.length <= 0) {
+        validationResult.message = `Please provide a link to an image.`
+        return validationResult;
+    }
 
-    img.onerror = () => {
-        callback(false);
-        setInvalidState();
-    };
+    if (url.length > 400) {
+        validationResult.message = `The link must be 400 characters or less. Current link has ${url.length} characters.`;
+        return validationResult;
+    }
 
-    img.src = url;
+    const isImage = await loadImage(url);
+
+    if (!isImage) {
+        validationResult.message = `Could not interpret the given link as an image.`
+    }
+
+    validationResult.isValid = isImage;
+
+    return validationResult;
+}
+
+async function loadImage(url) {
+    image.src = url;
+    const isImage = await new Promise(resolve => {
+        image.onload = () => resolve(true);
+        image.onerror = () => resolve(false);
+    });
+    return isImage;
 }
 
 function reset() {
-    document.getElementById("input-image").value = "";
+    document.getElementById("input-image").src = "";
+    document.getElementById("broadcasted-image").src = "";
+    document.getElementById("invalid-state").classList.add("d-none");
 }
 
-function setInvalidState() {
+function setInvalidState(validationMessage) {
     document.getElementById("invalid-state").classList.remove("d-none");
     document.getElementById("broadcasted-image").src = "";
+    document.getElementById("invalid-state-message").innerHTML = validationMessage;
 }
