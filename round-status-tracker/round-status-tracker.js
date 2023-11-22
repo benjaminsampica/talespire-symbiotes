@@ -28,6 +28,7 @@ function startTracking() {
 
 function handleInitiativeEvents(queue) {
     // TODO: determine what type of event we got. forwards/backwards/add/remove.
+    // Might need to do a linked list w/ forward and backward.
     currentInitiativeIndex = queue.activeItemIndex;
 
     // If forward/backward, we don't need to remap creatures.
