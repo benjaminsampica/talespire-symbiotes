@@ -3,15 +3,33 @@
 
 <head>
     <title>
-        <i class="ts-icon-broadcast" style="padding-right: 5px;"></i>
-        Broadcast Images
+        <i class="ts-icon-book" style="padding-right: 5px;"></i>
+        Round & Status Tracker
     </title>
-    <link rel="stylesheet" href="broadcast-image.css">
-    <script src="broadcast-image.js"></script>
+    <link rel="stylesheet" href="round-status-tracker.css">
+    <script src="round-status-tracker.js"></script>
 </head>
 
 <body>
-    
+    <p id="round-count"></p>
+    <div id="invalid-state" class="d-none">
+        <h3 style="display: flex; align-items: center; margin-top: 0px; gap: 5px;">
+            <i class="ts-icon-warning"></i>
+            <p id="invalid-state-message"></p>
+        </h3>
+    </div>
+    <div id="tracked-creature-list"></div>
+    <template id="tracked-creature-template">
+        <div>
+            <p id="tracked-creature-name"></p>
+        </div>
+    </template>
+    <template id="tracked-creature-status-template">
+        <div>
+            <p id="tracked-creature-status-name"></p>
+            <p id="tracked-creature-status-duration"></p>
+        </div>
+    </template>
 </body>
 
 </html>
