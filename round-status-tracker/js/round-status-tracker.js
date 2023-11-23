@@ -1,10 +1,13 @@
+const buff = require('./buff')
+const creatureInitiativeItem = require('./creatureInitiativeItem')
+
 const conditions = [
     'Blinded', 'Charmed', 'Deafened', 'Frightened', 'Grappled', 'Incapacitated', 'Invisible', 'Paralyzed',
     'Petrified', 'Poisoned', 'Prone', 'Stunned', 'Unconscious'
 ];
 
 const buffs = [
-    createBuff('Heroism', 10), createBuff('Longstrider', 10)
+    new buff('Heroism', 10)
 ]
 
 let trackedCreatures = [];
@@ -28,27 +31,25 @@ function startTracking() {
 
 function handleInitiativeEvents(queue) {
     // TODO: determine what type of event we got. forwards/backwards/add/remove.
-    // Might need to do a linked list w/ forward and backward.
     currentInitiativeIndex = queue.activeItemIndex;
 
-    // If forward/backward, we don't need to remap creatures.
+    const remappedCreatures = remapCreatures(trackedCreatures, queue);
+}
 
-    // If Add/Remove, do below.
+function remapCreatures(existingTrackedCreatures, queue) {
     let authoritativeTrackedCreatures = queue.items
         .map(item => new creatureInitiativeItem(item.id, item.name));
 
-    let existingTrackedCreatureIds = trackedCreatures.map(ntc => ntc.id);
-    trackedCreatures = authoritativeTrackedCreatures
+    return authoritativeTrackedCreatures
         .map(atc => {
-            const isStillAlive = existingTrackedCreatureIds.includes(atc.id);
-            if (isStillAlive) {
-                const existingTrackedCreature = trackedCreatures.find(tc => tc.id == atc.id);
+            const existingTrackedCreature = existingTrackedCreatures.find(etc => etc.id == atc.id);
+            if (existingTrackedCreature !== undefined) {
                 atc.buffs = existingTrackedCreature.buffs;
                 atc.round = existingTrackedCreature.round;
                 atc.conditions = existingTrackedCreature.conditions;
-                // TODO: if current initiative index matches this creatures index?
-                // TODO: increment round for this creature? (decrement buffs)
             }
+
+            return atc;
         });
 }
 
@@ -66,16 +67,4 @@ function triggerNewRound() {
     document.getElementById("round-count").innerHTML = round;
 }
 
-class creatureInitiativeItem {
-    constructor(id, name) {
-        this.id = id;
-        this.name = name;
-        this.buffs = [];
-        this.conditions = [];
-        this.round = 1;
-    }
-
-    incrementRound() {
-        this.round++;
-    }
-}
+exports.remapCreatures = remapCreatures
