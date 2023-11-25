@@ -18,9 +18,7 @@ function createBuff(name, roundDuration) { return new { name: name, roundDuratio
 
 function startTracking() {
     round = 0;
-    trackedCreatures = TS.initiative.getQueue()
-        .filter(entry => entry.kind == "creature")
-        .map(entry => new creatureInitiativeItem(entry.id, entry.name));
+    trackedCreatures = mapOnlyCreatures(TS.initiative.getQueue());
 
     if (trackedCreatures.length == 0) {
         setInvalidState("There are no creatures in the initiative queue.");
@@ -37,8 +35,7 @@ function handleInitiativeEvents(queue) {
 }
 
 function remapCreatures(existingTrackedCreatures, queue) {
-    let authoritativeTrackedCreatures = queue.items
-        .map(item => new creatureInitiativeItem(item.id, item.name));
+    let authoritativeTrackedCreatures = mapOnlyCreatures(queue.items);
 
     return authoritativeTrackedCreatures
         .map(atc => {
@@ -51,6 +48,13 @@ function remapCreatures(existingTrackedCreatures, queue) {
 
             return atc;
         });
+}
+
+function mapOnlyCreatures(items)
+{
+    return items
+        .filter(entry => entry.kind == "creature")
+        .map(entry => new creatureInitiativeItem(entry.id, entry.name))
 }
 
 function refreshTrackedCreaturesDOM() {
