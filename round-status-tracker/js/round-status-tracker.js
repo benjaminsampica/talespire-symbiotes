@@ -1,5 +1,5 @@
 const buff = require('./buff')
-const creatureInitiativeItem = require('./creatureInitiativeItem')
+const trackedCreature = require('./trackedCreature')
 
 const conditions = [
     'Blinded', 'Charmed', 'Deafened', 'Frightened', 'Grappled', 'Incapacitated', 'Invisible', 'Paralyzed',
@@ -12,9 +12,7 @@ const buffs = [
 
 let trackedCreatures = [];
 let round = 0;
-let currentInitiativeIndex = 0;
-
-function createBuff(name, roundDuration) { return new { name: name, roundDuration: roundDuration } }
+let activeCreatureIndex = 0;
 
 function startTracking() {
     round = 0;
@@ -28,10 +26,16 @@ function startTracking() {
 }
 
 function handleInitiativeEvents(queue) {
-    // TODO: determine what type of event we got. forwards/backwards/add/remove.
-    currentInitiativeIndex = queue.activeItemIndex;
+    trackedCreatures = remapCreatures(trackedCreatures, queue);
+    updateLastTurnCreature(trackedCreatures, queue.activeItemIndex);
+    refreshTrackedCreaturesDOM(trackedCreatures);
 
-    const remappedCreatures = remapCreatures(trackedCreatures, queue);
+    if(isNewRound(queue.activeItemIndex))
+    {
+        triggerNewRound();
+    }
+
+    activeCreatureIndex = queue.activeItemIndex;
 }
 
 function remapCreatures(existingTrackedCreatures, queue) {
@@ -50,15 +54,33 @@ function remapCreatures(existingTrackedCreatures, queue) {
         });
 }
 
+function updateLastTurnCreature(trackedCreatures, authoritativeIndex)
+{
+    const lastTurnCreature = trackedCreatures[activeCreatureIndex];
+    const turnHasIncremented = activeCreatureIndex + 1 == authoritativeIndex;
+    if(turnHasIncremented)
+    {
+        lastTurnCreature.incrementRound();
+    }
+    else {
+        lastTurnCreature.decrementRound();
+    }
+}
+
+function isNewRound(authoritativeIndex)
+{
+    return activeCreatureIndex !== authoritativeIndex - 1; // The index only moves more than one position when a round has passed (e.g. the first creature's turn has begun for the second time.)
+}
+
 function mapOnlyCreatures(items)
 {
     return items
         .filter(entry => entry.kind == "creature")
-        .map(entry => new creatureInitiativeItem(entry.id, entry.name))
+        .map(entry => new trackedCreature(entry.id, entry.name))
 }
 
-function refreshTrackedCreaturesDOM() {
-    document.getElementById("tracked-creature-template").content.firstElementChild.cloneNode(true);
+function refreshTrackedCreaturesDOM(trackedCreatures) {
+    var template = document.getElementById("tracked-creature-template").content.firstElementChild.cloneNode(true);
 }
 
 function setInvalidState(message) {
@@ -72,3 +94,4 @@ function triggerNewRound() {
 }
 
 exports.remapCreatures = remapCreatures
+exports.updateLastTurnCreature = updateLastTurnCreature
