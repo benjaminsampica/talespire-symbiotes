@@ -18,8 +18,8 @@ function startTracking() {
     round = 0;
     trackedCreatures = mapOnlyCreatures(TS.initiative.getQueue());
 
-    if (trackedCreatures.length == 0) {
-        setInvalidState("There are no creatures in the initiative queue.");
+    if (trackedCreatures.length <= 2) {
+        setInvalidState("Must be 3 or more creatures in the initiative queue to start tracking.");
     }
 
     triggerNewRound();
