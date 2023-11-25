@@ -26,12 +26,13 @@ function startTracking() {
 }
 
 function handleInitiativeEvents(queue) {
+    trackedCreatures = remapCreatures(trackedCreatures, queue);
+
     if(isNewRound(activeCreatureIndex, queue.activeItemIndex))
     {
         triggerNewRound();
     }
 
-    trackedCreatures = remapCreatures(trackedCreatures, queue);
     updateTurnForCreatures(trackedCreatures, queue.activeItemIndex);
     refreshTrackedCreaturesDOM(trackedCreatures);
 }
@@ -79,8 +80,9 @@ function isNewRound(activeCreatureIndex, actualCreatureIndex)
     // Example: 10 creatures on initiative list (0 thru 9)
     // Creature 9 finishes their turn and the turn moves back to Creature 0 (new round)
     // Creature 0 is still taking their turn but Creature 9 forgot to do something and the turn moves back (new round).
-    // TODO: make this work when there are only two creatures.
-    return activeCreatureIndex !== actualCreatureIndex - 1; 
+    // NOTE: There is a limitation for only _two_ creatures. There isn't enough data available from Talespire to determine if the turn went backwards or went to a new round.
+
+    return activeCreatureIndex - 1 !== actualCreatureIndex && activeCreatureIndex + 1 !== actualCreatureIndex; 
 }
 
 function mapOnlyCreatures(items)
