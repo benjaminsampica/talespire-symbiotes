@@ -26,22 +26,20 @@ function startTracking() {
 }
 
 function handleInitiativeEvents(queue) {
-    trackedCreatures = remapCreatures(trackedCreatures, queue);
-    updateLastTurnCreature(trackedCreatures, queue.activeItemIndex);
-    refreshTrackedCreaturesDOM(trackedCreatures);
-
-    if(isNewRound(queue.activeItemIndex))
+    if(isNewRound(activeCreatureIndex, queue.activeItemIndex))
     {
         triggerNewRound();
     }
 
-    activeCreatureIndex = queue.activeItemIndex;
+    trackedCreatures = remapCreatures(trackedCreatures, queue);
+    updateTurnForCreatures(trackedCreatures, queue.activeItemIndex);
+    refreshTrackedCreaturesDOM(trackedCreatures);
 }
 
 function remapCreatures(existingTrackedCreatures, queue) {
-    let authoritativeTrackedCreatures = mapOnlyCreatures(queue.items);
+    let actualTrackedCreatures = mapOnlyCreatures(queue.items);
 
-    return authoritativeTrackedCreatures
+    return actualTrackedCreatures
         .map(atc => {
             const existingTrackedCreature = existingTrackedCreatures.find(etc => etc.id == atc.id);
             if (existingTrackedCreature !== undefined) {
@@ -54,22 +52,35 @@ function remapCreatures(existingTrackedCreatures, queue) {
         });
 }
 
-function updateLastTurnCreature(trackedCreatures, authoritativeIndex)
+function updateTurnForCreatures(trackedCreatures, actualCreatureIndex)
 {
-    const lastTurnCreature = trackedCreatures[activeCreatureIndex];
-    const turnHasIncremented = activeCreatureIndex + 1 == authoritativeIndex;
+    const turnHasIncremented = isNewRound(activeCreatureIndex, actualCreatureIndex) 
+        ? activeCreatureIndex > actualCreatureIndex 
+        : activeCreatureIndex + 1 == actualCreatureIndex;
+
     if(turnHasIncremented)
     {
+        const lastTurnCreature = trackedCreatures[activeCreatureIndex];
         lastTurnCreature.incrementRound();
     }
-    else {
-        lastTurnCreature.decrementRound();
+    else 
+    {
+        const currentTurnCreature = trackedCreatures[actualCreatureIndex];
+        currentTurnCreature.decrementRound();
     }
+
+    activeCreatureIndex = actualCreatureIndex;
 }
 
-function isNewRound(authoritativeIndex)
+function isNewRound(activeCreatureIndex, actualCreatureIndex)
 {
-    return activeCreatureIndex !== authoritativeIndex - 1; // The index only moves more than one position when a round has passed (e.g. the first creature's turn has begun for the second time.)
+    // The index only moves more than one position when a round has passed (e.g. the first creature's turn has begun for the second time.). 
+    // A new round can occur both when the index in incremented in the following ways:
+    // Example: 10 creatures on initiative list (0 thru 9)
+    // Creature 9 finishes their turn and the turn moves back to Creature 0 (new round)
+    // Creature 0 is still taking their turn but Creature 9 forgot to do something and the turn moves back (new round).
+    // TODO: make this work when there are only two creatures.
+    return activeCreatureIndex !== actualCreatureIndex - 1; 
 }
 
 function mapOnlyCreatures(items)
@@ -94,4 +105,4 @@ function triggerNewRound() {
 }
 
 exports.remapCreatures = remapCreatures
-exports.updateLastTurnCreature = updateLastTurnCreature
+exports.updateTurnForCreatures = updateTurnForCreatures

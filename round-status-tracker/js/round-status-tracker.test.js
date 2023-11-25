@@ -50,7 +50,43 @@ test('when a turn increments from creature 0 to 1, then creature 0 buff duration
     creature1.addBuff(new buff('test buff', 2));
     let existingTrackedCreatures = [creature0, creature1];
 
-    sut.updateLastTurnCreature(existingTrackedCreatures, 1);
+    sut.updateTurnForCreatures(existingTrackedCreatures, 1);
     
     expect(creature0.buffs[0].roundDuration).toEqual(1);
+});
+
+test('when a turn decrements from creature 1 to 0, then creature 0 buff durations go up by 1', () => {
+    const creature0 = new trackedCreature(1, 'Test');
+    creature0.addBuff(new buff('test buff', 2));
+
+    const creature1 = new trackedCreature(1, 'Test');
+    creature1.addBuff(new buff('test buff', 2));
+    let existingTrackedCreatures = [creature0, creature1];
+
+    sut.updateTurnForCreatures(existingTrackedCreatures, 1);
+    sut.updateTurnForCreatures(existingTrackedCreatures, 0);
+    
+    expect(creature0.buffs[0].roundDuration).toEqual(2);
+});
+
+test('when a turn increments from creature 0 to 1 to 2 to 0 then decrements to 2, then creature 2 buff durations are still 2', () => {
+    const creature0 = new trackedCreature(1, 'Test');
+    creature0.addBuff(new buff('test buff', 2));
+
+    const creature1 = new trackedCreature(1, 'Test');
+    creature1.addBuff(new buff('test buff', 2));
+
+    const creature2 = new trackedCreature(1, 'Test');
+    creature2.addBuff(new buff('test buff', 2));
+    let existingTrackedCreatures = [creature0, creature1, creature2];
+
+    sut.updateTurnForCreatures(existingTrackedCreatures, 1);
+    sut.updateTurnForCreatures(existingTrackedCreatures, 2);
+    sut.updateTurnForCreatures(existingTrackedCreatures, 0);
+
+    expect(creature2.buffs[0].roundDuration).toEqual(1);
+    
+    sut.updateTurnForCreatures(existingTrackedCreatures, 2);
+    
+    expect(creature2.buffs[0].roundDuration).toEqual(2);
 });
