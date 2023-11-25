@@ -21,8 +21,11 @@ function startTracking() {
     if (trackedCreatures.length <= 2) {
         setInvalidState("Must be 3 or more creatures in the initiative queue to start tracking.");
     }
+    else {
+        refreshTrackedCreaturesDOM(trackedCreatures);
+        triggerNewRound();
+    }
 
-    triggerNewRound();
 }
 
 function handleInitiativeEvents(queue) {
