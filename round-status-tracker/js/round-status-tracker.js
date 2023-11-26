@@ -82,27 +82,36 @@ function mapOnlyCreatures(items) {
 function refreshTrackedCreaturesDOM(trackedCreatures) {
     const trackedCreaturesList = document.getElementById("tracked-creatures-list");
 
-    trackedCreaturesList.innerHTML = buildTrackedCreaturesHtml(trackedCreatures);
+    trackedCreaturesList.innerHTML = buildTrackedCreaturesHtml(trackedCreatures, activeCreatureIndex);
 }
 
-function buildTrackedCreaturesHtml(trackedCreatures) {
+function buildTrackedCreaturesHtml(trackedCreatures, activeCreatureIndex) {
     const nameTemplate = `
-        <p>name</p>
+        <p class='creature'>name</p>
     `;
     const buffTemplate = `
+    <div class='buff'>
+        <i class="ts-icon-chevron-up"></i>
         <p>name</p>
-        <button onclick="overrideIncrementBuff(creatureIndex, name)">-</button>
+        <button class='ml-auto' onclick="overrideIncrementBuff(creatureIndex, name)">+</button>
         <p>duration</p>
-        <button onclick="overrideDecrementBuff(creatureIndex, name)">+</button>
+        <button onclick="overrideDecrementBuff(creatureIndex, name)">-</button>
+    </div>
     `;
     const conditionTemplate = `
+    <div class='condition'>
+        <i class="ts-icon-chevron-up rotate-180"></i>
         <p>name</p>
-        <button onclick="removeCondition(creatureIndex, name)">-</button>
+        <button class='ml-auto' onclick="removeCondition(creatureIndex, name)">-</button>
+    </div>
     `;
 
     let trackedCreatureHtml = '<div>';
     trackedCreatures.forEach((tc, i) => {
         trackedCreatureHtml += nameTemplate.replace('name', tc.name);
+        if (i == activeCreatureIndex) {
+            trackedCreatureHtml = trackedCreatureHtml.replace('creature', 'creature active')
+        }
 
         tc.buffs.forEach(b => {
             if (b.roundDuration >= 0) {

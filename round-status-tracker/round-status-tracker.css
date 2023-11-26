@@ -48,3 +48,24 @@ button:focus-visible {
 .d-none {
     display: none;
 }
+
+.tracked-creature {
+    display: flex;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+.condition>i {
+    background-color: var(--ts-color-danger);
+    transform: rotate(180deg);
+}
+
+.buff>i {
+    background-color: rgb(34, 187, 51);
+}
+
+.active {
+    border-color: var(--ts-color-primary);
+}

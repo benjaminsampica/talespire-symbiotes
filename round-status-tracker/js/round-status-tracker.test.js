@@ -100,13 +100,33 @@ test('when a turn increments from creature 0 to 1 to 2 to 0 then decrements to 2
     expect(creature2.buffs[0].roundDuration).toEqual(10);
 });
 
+test('when the current creature is active, then has active class', () => {
+    const creature0 = new TrackedCreature(1, 'Test1');
+
+    let existingTrackedCreatures = [creature0];
+
+    const result = sut.buildTrackedCreaturesHtml(existingTrackedCreatures, 0);
+
+    expect(result).toEqual(expect.stringContaining('active'));
+});
+
+test('when the current creature is not active, then does not have active class', () => {
+    const creature0 = new TrackedCreature(1, 'Test1');
+
+    let existingTrackedCreatures = [creature0];
+
+    const result = sut.buildTrackedCreaturesHtml(existingTrackedCreatures, 1);
+
+    expect(result).toEqual(expect.not.stringContaining('active'));
+});
+
 test('when there are multiple creatures, then builds multiple html elements', () => {
     const creature0 = new TrackedCreature(1, 'Test1');
     const creature1 = new TrackedCreature(1, 'Test2');
 
     let existingTrackedCreatures = [creature0, creature1];
 
-    const result = sut.buildTrackedCreaturesHtml(existingTrackedCreatures);
+    const result = sut.buildTrackedCreaturesHtml(existingTrackedCreatures, 0);
 
     expect(result).toEqual(expect.stringContaining('Test1'));
     expect(result).toEqual(expect.stringContaining('Test2'));
@@ -119,7 +139,7 @@ test('when there is a creature with multiple buffs, then builds multiple buffs',
 
     let existingTrackedCreatures = [creature];
 
-    const result = sut.buildTrackedCreaturesHtml(existingTrackedCreatures);
+    const result = sut.buildTrackedCreaturesHtml(existingTrackedCreatures, 0);
 
     expect(result).toEqual(expect.stringContaining('Heroism'));
     expect(result).toEqual(expect.stringContaining('10'));
@@ -134,7 +154,7 @@ test('when there is a creature with multiple conditions, then builds multiple co
 
     let existingTrackedCreatures = [creature];
 
-    const result = sut.buildTrackedCreaturesHtml(existingTrackedCreatures);
+    const result = sut.buildTrackedCreaturesHtml(existingTrackedCreatures, 0);
 
     expect(result).toEqual(expect.stringContaining('Blinded'));
     expect(result).toEqual(expect.stringContaining('Charmed'));
