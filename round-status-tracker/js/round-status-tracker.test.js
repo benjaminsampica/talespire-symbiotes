@@ -1,5 +1,5 @@
 import TrackedCreature from './trackedCreature';
-import {jest} from '@jest/globals';
+import { jest } from '@jest/globals';
 let sut;
 
 const taleSpireQueueItem = {
@@ -56,7 +56,7 @@ test('when a turn increments from creature 0 to 1, then creature 0 buff duration
     let existingTrackedCreatures = [creature0, creature1];
 
     sut.updateTurnForCreatures(existingTrackedCreatures, 1);
-    
+
     expect(creature0.buffs[0].roundDuration).toEqual(9);
 });
 
@@ -70,11 +70,11 @@ test('when a turn decrements from creature 1 to 0, then creature 0 buff duration
     let existingTrackedCreatures = [creature0, creature1];
 
     sut.updateTurnForCreatures(existingTrackedCreatures, 1);
-    
+
     expect(creature0.buffs[0].roundDuration).toEqual(9);
 
     sut.updateTurnForCreatures(existingTrackedCreatures, 0);
-    
+
     expect(creature0.buffs[0].roundDuration).toEqual(10);
 });
 
@@ -96,7 +96,7 @@ test('when a turn increments from creature 0 to 1 to 2 to 0 then decrements to 2
     expect(creature2.buffs[0].roundDuration).toEqual(9);
 
     sut.updateTurnForCreatures(existingTrackedCreatures, 2);
-    
+
     expect(creature2.buffs[0].roundDuration).toEqual(10);
 });
 

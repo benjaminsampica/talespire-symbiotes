@@ -18,8 +18,7 @@ class TrackedCreature {
         this.round++;
     }
 
-    decrementRound()
-    {
+    decrementRound() {
         this.buffs.forEach((b, i) => {
             b.roundDuration++;
         });;
@@ -27,27 +26,23 @@ class TrackedCreature {
         this.round--;
     }
 
-    addBuff(name)
-    {
-        if(this.buffs.find(b => b.name === name)) return;
+    addBuff(name) {
+        if (this.buffs.find(b => b.name === name)) return;
 
         this.buffs.push(Buff.list().find(b => b.name === name));
     }
 
-    removeBuff(name)
-    {
+    removeBuff(name) {
         this.buffs = this.buffs.filter(b => b.name !== name);
     }
 
-    addCondition(name)
-    {
-        if(this.conditions.find(c => c.name === name)) return;
+    addCondition(name) {
+        if (this.conditions.find(c => c.name === name)) return;
 
         this.conditions.push(Condition.list().find(c => c.name === name));
     }
 
-    removeCondition(name)
-    {
+    removeCondition(name) {
         this.conditions = this.conditions.filter(c => name !== c.name);
     }
 

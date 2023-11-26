@@ -52,7 +52,7 @@ test('conditions can be added', () => {
 
 test('conditions cant be added twice', () => {
     let sut = new TrackedCreature(1, 'Test');
-    
+
     sut.addCondition('Blinded');
     sut.addCondition('Blinded');
 
@@ -61,7 +61,7 @@ test('conditions cant be added twice', () => {
 
 test('conditions can be removed', () => {
     let sut = new TrackedCreature(1, 'Test');
-    
+
     sut.addCondition('Blinded');
     sut.removeCondition('Blinded');
 
@@ -78,7 +78,7 @@ test('buffs can be added', () => {
 
 test('buffs cant be added twice', () => {
     let sut = new TrackedCreature(1, 'Test');
-    
+
     sut.addBuff('Bless');
     sut.addBuff('Bless');
 
@@ -87,7 +87,7 @@ test('buffs cant be added twice', () => {
 
 test('buffs can be removed', () => {
     let sut = new TrackedCreature(1, 'Test');
-    
+
     sut.addBuff('Bless');
     sut.removeBuff('Bless');
 
