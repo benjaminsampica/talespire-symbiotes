@@ -1,7 +1,7 @@
 const TrackedCreature = require('./trackedCreature')
 
 let trackedCreatures = [];
-let round = 0;
+let round;
 let activeCreatureIndex = 0;
 
 function startTracking() {
