@@ -1,4 +1,6 @@
-const trackedCreature = require('./trackedCreature')
+const TrackedCreature = require('./trackedCreature')
+const Buff = require('./buff')
+const Condition = require('./condition')
 
 let trackedCreatures = [];
 let round = 0;
@@ -80,12 +82,92 @@ function isNewRound(activeCreatureIndex, actualCreatureIndex)
 function mapOnlyCreatures(items)
 {
     return items
-        .filter(entry => entry.kind == "creature") // Talespire is planning on including other kinds of entries in the item list.
-        .map(entry => new trackedCreature(entry.id, entry.name))
+        .filter(entry => entry.kind == "creature") // Talespire is planning on including other kinds of entries in the item list so we want to only include creature types.
+        .map(entry => new TrackedCreature(entry.id, entry.name))
 }
 
 function refreshTrackedCreaturesDOM(trackedCreatures) {
-    var template = document.getElementById("tracked-creature-template").content.firstElementChild.cloneNode(true);
+    const trackedCreaturesList = document.getElementById("tracked-creatures-list");
+
+    trackedCreaturesList.innerHTML = buildTrackedCreaturesHtml(trackedCreatures);
+}
+
+function buildTrackedCreaturesHtml(trackedCreatures)
+{
+    const nameTemplate = `
+        <p>name</p>
+    `;
+    const buffTemplate = `
+        <p>name</p>
+        <button onclick="overrideIncrementBuff(creatureIndex, name)">-</button>
+        <p>duration</p>
+        <button onclick="overrideDecrementBuff(creatureIndex, name)">+</button>
+    `;
+    const conditionTemplate = `
+        <p>name</p>
+        <button onclick="removeCondition(creatureIndex, name)">-</button>
+    `;
+
+    let trackedCreatureHtml = '<div>';
+    trackedCreatures.forEach((tc, i) => {
+        trackedCreatureHtml += nameTemplate.replace('name', tc.name);
+        
+        tc.buffs.forEach(b => {
+            trackedCreatureHtml += buffTemplate.replace(new RegExp('name', 'g'), b.name)
+                .replace('creatureIndex', i)
+                .replace('duration', b.roundDuration);
+        });
+
+        tc.conditions.forEach(c => {
+            trackedCreatureHtml += conditionTemplate.replace(new RegExp('name', 'g'), c.name)
+                .replace('creatureIndex', i);
+        });
+    });
+    trackedCreatureHtml += '<div>';
+
+    return trackedCreatureHtml;
+}
+
+function addBuff(creatureIndex, name)
+{
+    trackedCreatures[creatureIndex].addBuff(name);
+
+    refreshTrackedCreaturesDOM(trackedCreatures);
+}
+
+function removeBuff(creatureIndex, name)
+{
+    trackedCreatures[creatureIndex].removeBuff(name);
+
+    refreshTrackedCreaturesDOM(trackedCreatures);
+}
+
+function overrideIncrementBuff(creatureIndex, buffIndex)
+{
+    trackedCreatures[creatureIndex].overrideIncrementBuff(buffIndex);
+
+    refreshTrackedCreaturesDOM(trackedCreatures);
+}
+
+function overrideDecrementBuff(creatureIndex, buffIndex)
+{
+    trackedCreatures[creatureIndex].overrideDecrementBuff(buffIndex);
+
+    refreshTrackedCreaturesDOM(trackedCreatures);
+}
+
+function addCondition(creatureIndex, name)
+{
+    trackedCreatures[creatureIndex].addCondition(name);
+
+    refreshTrackedCreaturesDOM(trackedCreatures);
+}
+
+function removeCondition(creatureIndex, name)
+{
+    trackedCreatures[creatureIndex].removeCondition(name);
+
+    refreshTrackedCreaturesDOM(trackedCreatures);
 }
 
 function setInvalidState(message) {
@@ -100,3 +182,4 @@ function triggerNewRound() {
 
 exports.remapCreatures = remapCreatures
 exports.updateTurnForCreatures = updateTurnForCreatures
+exports.buildTrackedCreaturesHtml = buildTrackedCreaturesHtml

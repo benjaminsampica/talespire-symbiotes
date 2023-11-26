@@ -1,3 +1,6 @@
+const Buff = require("./buff");
+const Condition = require("./condition");
+
 class TrackedCreature {
     constructor(id, name) {
         this.id = id;
@@ -17,16 +20,31 @@ class TrackedCreature {
 
     decrementRound()
     {
-        this.buffs.forEach(b => {
+        this.buffs.forEach((b, i) => {
             b.roundDuration++;
         });;
 
         this.round--;
     }
 
-    addBuff(buff)
+    addBuff(name)
     {
-        this.buffs.push(buff);
+        this.buffs.push(Buff.List().find(b => b.name == name));
+    }
+
+    removeBuff(name)
+    {
+        this.buffs = this.buffs.filter(b => b.name !== name);
+    }
+
+    addCondition(name)
+    {
+        this.conditions.push(Condition.List().find(c => c.name == name));
+    }
+
+    removeCondition(name)
+    {
+        this.conditions = this.conditions.filter(c => name !== c.name);
     }
 
     overrideIncrementBuff(index) {

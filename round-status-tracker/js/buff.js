@@ -7,7 +7,7 @@ class Buff {
     static List()
     {
         return [
-            new Buff('Heroism', 10)
+            new Buff('Heroism', 10), new Buff('Bless', 10)
         ]
     }
 }
