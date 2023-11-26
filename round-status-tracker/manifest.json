@@ -18,7 +18,9 @@
       "id": "61bc4d69-814e-4069-8a75-96a80c28837e"
     },
     "subscriptions": {
-      "onInitiativeEvent": "handleInitiativeEvents"
+      "initiative": {
+        "onInitiativeEvent": "handleInitiativeEvents"
+      }
     }
   },
   "controls": {
