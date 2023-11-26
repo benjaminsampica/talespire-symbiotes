@@ -178,3 +178,6 @@ function triggerNewRound() {
 }
 
 export default { updateTurnForCreatures, remapCreatures, buildTrackedCreaturesHtml };
+
+window.startTrackingAsync = startTrackingAsync;
+window.handleInitiativeEvents = handleInitiativeEvents;

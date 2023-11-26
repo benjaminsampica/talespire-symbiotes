@@ -12,7 +12,7 @@ async function onBroadcastImageAsync() {
     }
 }
 
-async function handleSyncEvents(event) {
+function handleSyncEvents(event) {
     document.getElementById("broadcasted-image").src = event.payload.str;
 }
 
