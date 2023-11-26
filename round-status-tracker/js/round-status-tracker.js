@@ -80,7 +80,7 @@ function isNewRound(activeCreatureIndex, actualCreatureIndex)
 function mapOnlyCreatures(items)
 {
     return items
-        .filter(entry => entry.kind == "creature")
+        .filter(entry => entry.kind == "creature") // Talespire is planning on including other kinds of entries in the item list.
         .map(entry => new trackedCreature(entry.id, entry.name))
 }
 
