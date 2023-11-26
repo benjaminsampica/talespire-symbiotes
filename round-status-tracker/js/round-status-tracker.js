@@ -1,6 +1,4 @@
 const TrackedCreature = require('./trackedCreature')
-const Buff = require('./buff')
-const Condition = require('./condition')
 
 let trackedCreatures = [];
 let round = 0;
