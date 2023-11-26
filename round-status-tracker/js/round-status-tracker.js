@@ -100,7 +100,7 @@ function buildTrackedCreaturesHtml(trackedCreatures, activeCreatureIndex) {
     `;
     const conditionTemplate = `
     <div class='condition'>
-        <i class="ts-icon-chevron-up rotate-180"></i>
+        <i class="ts-icon-chevron-up"></i>
         <p>name</p>
         <button class='ml-auto' onclick="removeCondition(creatureIndex, name)">-</button>
     </div>
