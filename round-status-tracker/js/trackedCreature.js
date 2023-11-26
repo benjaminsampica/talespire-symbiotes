@@ -29,7 +29,9 @@ class TrackedCreature {
 
     addBuff(name)
     {
-        this.buffs.push(Buff.List().find(b => b.name == name));
+        if(this.buffs.find(b => b.name === name)) return;
+
+        this.buffs.push(Buff.list().find(b => b.name === name));
     }
 
     removeBuff(name)
@@ -39,7 +41,9 @@ class TrackedCreature {
 
     addCondition(name)
     {
-        this.conditions.push(Condition.List().find(c => c.name == name));
+        if(this.conditions.find(c => c.name === name)) return;
+
+        this.conditions.push(Condition.list().find(c => c.name === name));
     }
 
     removeCondition(name)

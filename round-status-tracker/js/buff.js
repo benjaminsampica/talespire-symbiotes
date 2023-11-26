@@ -4,7 +4,7 @@ class Buff {
         this.roundDuration = roundDuration;
     }
 
-    static List()
+    static list()
     {
         return [
             new Buff('Heroism', 10), new Buff('Bless', 10)

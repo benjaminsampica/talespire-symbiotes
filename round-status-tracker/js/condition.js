@@ -4,7 +4,7 @@ class Condition {
         this.name = name;
     }
 
-    static List()
+    static list()
     {
         return [
             new Condition('Blinded'), new Condition('Charmed'), new Condition('Deafened'), new Condition('Frightened'), new Condition('Grappled'), 

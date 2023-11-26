@@ -111,9 +111,12 @@ function buildTrackedCreaturesHtml(trackedCreatures)
         trackedCreatureHtml += nameTemplate.replace('name', tc.name);
         
         tc.buffs.forEach(b => {
-            trackedCreatureHtml += buffTemplate.replace(new RegExp('name', 'g'), b.name)
-                .replace('creatureIndex', i)
-                .replace('duration', b.roundDuration);
+            if(b.roundDuration >= 0)
+            {
+                trackedCreatureHtml += buffTemplate.replace(new RegExp('name', 'g'), b.name)
+                    .replace('creatureIndex', i)
+                    .replace('duration', b.roundDuration);
+            }
         });
 
         tc.conditions.forEach(c => {
