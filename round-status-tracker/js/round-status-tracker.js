@@ -1,12 +1,13 @@
 const TrackedCreature = require('./trackedCreature')
 
 let trackedCreatures = [];
-let round;
+var round;
 let activeCreatureIndex = 0;
 
-function startTracking() {
+async function startTrackingAsync() {
     round = 0;
-    trackedCreatures = mapOnlyCreatures(TS.initiative.getQueue());
+    const taleSpireQueue = await TS.initiative.getQueue();
+    trackedCreatures = mapOnlyCreatures(taleSpireQueue.items);
 
     if (trackedCreatures.length <= 2) {
         setInvalidState("Must be 3 or more creatures in the initiative queue to start tracking.");
