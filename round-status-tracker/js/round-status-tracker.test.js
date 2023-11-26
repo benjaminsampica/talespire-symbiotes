@@ -1,5 +1,5 @@
-const trackedCreature = require('./trackedCreature');
-const buff = require('./buff');
+const TrackedCreature = require('./trackedCreature');
+const Buff = require('./buff');
 let sut;
 
 const taleSpireQueueItem = {
@@ -21,12 +21,12 @@ test('new creatures map', () => {
 
     const actualResult = sut.remapCreatures(existingTrackedCreatures, queue);
 
-    let expectedResult = [new trackedCreature(1, 'Test')];
+    let expectedResult = [new TrackedCreature(1, 'Test')];
     expect(actualResult).toEqual(expectedResult)
 });
 
 test('existing creatures stay mapped', () => {
-    let existingTrackedCreatures = [new trackedCreature(1, 'Test')];
+    let existingTrackedCreatures = [new TrackedCreature(1, 'Test')];
     let queue = {
         items: [taleSpireQueueItem]
     }
@@ -37,7 +37,7 @@ test('existing creatures stay mapped', () => {
 });
 
 test('missing creatures are removed', () => {
-    let existingTrackedCreatures = [new trackedCreature(1, 'Test')];
+    let existingTrackedCreatures = [new TrackedCreature(1, 'Test')];
     let queue = {
         items: []
     }
@@ -48,11 +48,11 @@ test('missing creatures are removed', () => {
 });
 
 test('when a turn increments from creature 0 to 1, then creature 0 buff durations go down by 1', () => {
-    const creature0 = new trackedCreature(1, 'Test');
-    creature0.addBuff(new buff('test buff', 2));
+    const creature0 = new TrackedCreature(1, 'Test');
+    creature0.addBuff(new Buff('test buff', 2));
 
-    const creature1 = new trackedCreature(1, 'Test');
-    creature1.addBuff(new buff('test buff', 2));
+    const creature1 = new TrackedCreature(1, 'Test');
+    creature1.addBuff(new Buff('test buff', 2));
     let existingTrackedCreatures = [creature0, creature1];
 
     sut.updateTurnForCreatures(existingTrackedCreatures, 1);
@@ -61,11 +61,11 @@ test('when a turn increments from creature 0 to 1, then creature 0 buff duration
 });
 
 test('when a turn decremets from creature 1 to 0, then creature 0 buff durations go up by 1', () => {
-    const creature0 = new trackedCreature(1, 'Test');
-    creature0.addBuff(new buff('test buff', 2));
+    const creature0 = new TrackedCreature(1, 'Test');
+    creature0.addBuff(new Buff('test buff', 2));
 
-    const creature1 = new trackedCreature(1, 'Test');
-    creature1.addBuff(new buff('test buff', 2));
+    const creature1 = new TrackedCreature(1, 'Test');
+    creature1.addBuff(new Buff('test buff', 2));
 
     let existingTrackedCreatures = [creature0, creature1];
 
@@ -79,14 +79,14 @@ test('when a turn decremets from creature 1 to 0, then creature 0 buff durations
 });
 
 test('when a turn increments from creature 0 to 1 to 2 to 0 then decrements to 2, then creature 2 buff durations go up by 1', () => {
-    const creature0 = new trackedCreature(1, 'Test');
-    creature0.addBuff(new buff('test buff', 2));
+    const creature0 = new TrackedCreature(1, 'Test');
+    creature0.addBuff(new Buff('test buff', 2));
 
-    const creature1 = new trackedCreature(1, 'Test');
-    creature1.addBuff(new buff('test buff', 2));
+    const creature1 = new TrackedCreature(1, 'Test');
+    creature1.addBuff(new Buff('test buff', 2));
 
-    const creature2 = new trackedCreature(1, 'Test');
-    creature2.addBuff(new buff('test buff', 2));
+    const creature2 = new TrackedCreature(1, 'Test');
+    creature2.addBuff(new Buff('test buff', 2));
     let existingTrackedCreatures = [creature0, creature1, creature2];
 
     sut.updateTurnForCreatures(existingTrackedCreatures, 1);

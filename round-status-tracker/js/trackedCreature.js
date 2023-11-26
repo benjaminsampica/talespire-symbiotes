@@ -1,4 +1,4 @@
-class trackedCreature {
+class TrackedCreature {
     constructor(id, name) {
         this.id = id;
         this.name = name;
@@ -28,6 +28,14 @@ class trackedCreature {
     {
         this.buffs.push(buff);
     }
+
+    overrideIncrementBuff(index) {
+        this.buffs[index].roundDuration++;
+    }
+
+    overrideDecrementBuff(index) {
+        this.buffs[index].roundDuration--;
+    }
 }
 
-module.exports = trackedCreature
+module.exports = TrackedCreature
