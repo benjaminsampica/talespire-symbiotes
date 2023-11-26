@@ -11,15 +11,22 @@
 </head>
 
 <body>
-    <p id="round-count"></p>
+    <h1>Round: <span id="round-count"></span></h1>
     <div id="invalid-state" class="d-none">
         <h3 style="display: flex; align-items: center; margin-top: 0px; gap: 5px;">
             <i class="ts-icon-warning"></i>
             <p id="invalid-state-message"></p>
         </h3>
     </div>
-    <button onclick="startTrackingAsync()">Start Tracking</button>
+    <button onclick="startTrackingAsync()" style="margin-bottom:5px;">Start Tracking</button>
     <div id="tracked-creatures-list"></div>
+    <hr/>
+    <div id="add-condition-form" class="d-none">
+
+    </div>
+    <div id="add-buff-form" class="d-none">
+        <button onclick="cancelBuffSubmission()">Cancel</button>
+    </div>
 </body>
 
 </html>
