@@ -1,5 +1,5 @@
-import Buff from "./buff";
-import Condition from "./condition";
+import Buff from "./buff.js";
+import Condition from "./condition.js";
 
 class TrackedCreature {
     constructor(id, name) {

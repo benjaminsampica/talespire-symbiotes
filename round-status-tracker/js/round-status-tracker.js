@@ -1,4 +1,4 @@
-import TrackedCreature from './trackedCreature';
+import TrackedCreature from './trackedCreature.js';
 
 var trackedCreatures = [];
 var round;
