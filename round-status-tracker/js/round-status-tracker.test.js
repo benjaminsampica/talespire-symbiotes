@@ -1,5 +1,5 @@
-const TrackedCreature = require('./trackedCreature');
-const Buff = require('./buff');
+import TrackedCreature from './trackedCreature';
+import {jest} from '@jest/globals';
 let sut;
 
 const taleSpireQueueItem = {
@@ -8,9 +8,9 @@ const taleSpireQueueItem = {
     kind: 'creature'
 }
 
-beforeEach(() => {
+beforeEach(async () => {
     jest.resetModules();
-    sut = require('./round-status-tracker');
+    sut = (await import('./round-status-tracker')).default;
 });
 
 test('new creatures map', () => {
@@ -60,7 +60,7 @@ test('when a turn increments from creature 0 to 1, then creature 0 buff duration
     expect(creature0.buffs[0].roundDuration).toEqual(9);
 });
 
-test('when a turn decremets from creature 1 to 0, then creature 0 buff durations go up by 1', () => {
+test('when a turn decrements from creature 1 to 0, then creature 0 buff durations go up by 1', () => {
     const creature0 = new TrackedCreature(1, 'Test');
     creature0.addBuff('Heroism');
 

@@ -1,5 +1,5 @@
-const Buff = require("./buff");
-const Condition = require("./condition");
+import Buff from "./buff";
+import Condition from "./condition";
 
 class TrackedCreature {
     constructor(id, name) {
@@ -60,4 +60,4 @@ class TrackedCreature {
     }
 }
 
-module.exports = TrackedCreature
+export default TrackedCreature

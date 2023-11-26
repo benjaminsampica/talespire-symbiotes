@@ -1,4 +1,4 @@
-const TrackedCreature = require('./trackedCreature')
+import TrackedCreature from './trackedCreature';
 
 var trackedCreatures = [];
 var round;
@@ -182,6 +182,4 @@ function triggerNewRound() {
     document.getElementById("round-count").innerHTML = round;
 }
 
-exports.remapCreatures = remapCreatures
-exports.updateTurnForCreatures = updateTurnForCreatures
-exports.buildTrackedCreaturesHtml = buildTrackedCreaturesHtml
+export default { updateTurnForCreatures, remapCreatures, buildTrackedCreaturesHtml };

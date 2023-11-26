@@ -1,5 +1,4 @@
-const TrackedCreature = require('./trackedCreature');
-const Buff = require('./buff');
+import TrackedCreature from './trackedCreature';
 
 test('when a round is incremented, all buffs durations are decremented', () => {
     let sut = new TrackedCreature(1, 'Test');

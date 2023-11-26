@@ -12,4 +12,4 @@ class Buff {
     }
 }
 
-module.exports = Buff
+export default Buff
