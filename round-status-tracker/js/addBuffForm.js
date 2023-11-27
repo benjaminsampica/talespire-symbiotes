@@ -1,5 +1,5 @@
-import Buff from "./buff";
-import { setInvalidState, resetInvalidState } from `./invalidStateTracker.js`;
+import Buff from './buff.js';
+import InvalidStateService from './invalidStateService.js';
 
 class addBuffForm {
     constructor(creature, onSubmitFormCallback) {
@@ -33,13 +33,13 @@ class addBuffForm {
         var name = document.getElementById('selected-buff').value;
         if(name === null || undefined)
         {
-            setInvalidState("Please choose a buff.");
+            InvalidStateService.setInvalidState("Please choose a buff.");
         }
 
         creature.addBuff(name);
         
         document.getElementById('add-buff-form').innerHTML = '';
-        resetInvalidState();
+        InvalidStateService.resetInvalidState();
         onSubmitFormCallback();
     }
 

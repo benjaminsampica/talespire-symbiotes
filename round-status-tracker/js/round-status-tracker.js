@@ -1,6 +1,6 @@
 import TrackedCreature from './trackedCreature.js';
 import AddBuffForm from './addBuffForm.js';
-import { setInvalidState, resetInvalidState } from `./invalidStateTracker.js`;
+import InvalidStateService from './invalidStateService.js';
 
 var trackedCreatures = [];
 var round;
@@ -13,10 +13,10 @@ async function startTrackingAsync() {
     trackedCreatures = mapOnlyCreatures(taleSpireQueue.items);
 
     if (trackedCreatures.length <= 2) {
-        setInvalidState("There must be 3 or more creatures in the initiative queue to start tracking.");
+        InvalidStateService.setInvalidState("There must be 3 or more creatures in the initiative queue to start tracking.");
     }
     else {
-        resetInvalidState();
+        InvalidStateService.resetInvalidState();
         refreshTrackedCreaturesDOM(trackedCreatures);
         triggerNewRound(true);
     }

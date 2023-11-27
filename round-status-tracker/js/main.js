@@ -1,4 +1,4 @@
-import roundStatusTracker from "./round-status-tracker";
+import roundStatusTracker from './round-status-tracker.js';
 
 window.startTrackingAsync = roundStatusTracker.startTrackingAsync;
 window.handleInitiativeEvents = roundStatusTracker.handleInitiativeEvents;

@@ -15,11 +15,9 @@ beforeEach(async () => {
 
 test('new creatures map', () => {
     let existingTrackedCreatures = [];
-    let queue = {
-        items: [taleSpireQueueItem]
-    }
+    let items =  [taleSpireQueueItem]
 
-    const actualResult = sut.remapCreatures(existingTrackedCreatures, queue);
+    const actualResult = sut.remapCreatures(existingTrackedCreatures, items);
 
     let expectedResult = [new TrackedCreature(1, 'Test')];
     expect(actualResult).toEqual(expectedResult)
@@ -27,22 +25,18 @@ test('new creatures map', () => {
 
 test('existing creatures stay mapped', () => {
     let existingTrackedCreatures = [new TrackedCreature(1, 'Test')];
-    let queue = {
-        items: [taleSpireQueueItem]
-    }
+    let items =  [taleSpireQueueItem]
 
-    const actualResult = sut.remapCreatures(existingTrackedCreatures, queue);
+    const actualResult = sut.remapCreatures(existingTrackedCreatures, items);
 
     expect(actualResult).toEqual(existingTrackedCreatures)
 });
 
 test('missing creatures are removed', () => {
     let existingTrackedCreatures = [new TrackedCreature(1, 'Test')];
-    let queue = {
-        items: []
-    }
+    let items =  []
 
-    const actualResult = sut.remapCreatures(existingTrackedCreatures, queue);
+    const actualResult = sut.remapCreatures(existingTrackedCreatures, items);
 
     expect(actualResult).toEqual([])
 });
