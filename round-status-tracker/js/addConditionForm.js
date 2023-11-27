@@ -1,5 +1,23 @@
 import Condition from './condition.js';
 import InvalidStateService from './invalidStateService.js';
+import EncounterStateService from './encounterStateService.js';
+
+document.addEventListener("click", function(e) {
+    const target = e.target.closest("#submit-condition-form");
+  
+    if(target){
+        form.submitBuffForm();
+    }
+});
+
+document.addEventListener("click", function(e) {
+    const target = e.target.closest("#trigger-condition-form");
+  
+    if(target) {
+        const creatureIndex = target.value;
+        form = new addConditionForm(creatureIndex);
+    }
+});
 
 class addConditionForm {
     constructor(creature, onSubmitFormCallback) {
@@ -35,12 +53,13 @@ class addConditionForm {
         {
             InvalidStateService.setInvalidState("Please choose a condition.");
         }
-
-        creature.addCondition(name);
+        else {
+            creature.addCondition(name);
         
-        document.getElementById('add-condition-form').innerHTML = '';
-        InvalidStateService.resetInvalidState();
-        onSubmitFormCallback();
+            document.getElementById('add-condition-form').innerHTML = '';
+            InvalidStateService.resetInvalidState();
+            EncounterStateService.refreshTrackedCreaturesDOM();
+        }
     }
 
     cancelConditionSubmission()

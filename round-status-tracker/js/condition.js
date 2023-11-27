@@ -1,4 +1,4 @@
-class Condition {
+export default class Condition {
     constructor(name) {
         this.name = name;
     }
@@ -11,5 +11,3 @@ class Condition {
         ];
     }
 }
-
-export default Condition

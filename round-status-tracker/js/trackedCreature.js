@@ -41,12 +41,12 @@ class TrackedCreature {
         this.conditions = this.conditions.filter(c => name !== c.name);
     }
 
-    overrideIncrementBuff(index) {
-        this.buffs[index].roundDuration++;
+    overrideIncrementBuff(name) {
+        this.buffs.find(b => b.name == name).roundDuration++;
     }
 
-    overrideDecrementBuff(index) {
-        this.buffs[index].roundDuration--;
+    overrideDecrementBuff(name) {
+        this.buffs.find(b => b.name == name).roundDuration--;
     }
 }
 

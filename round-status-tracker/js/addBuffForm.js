@@ -1,9 +1,28 @@
 import Buff from './buff.js';
 import InvalidStateService from './invalidStateService.js';
+import EncounterStateService from './encounterStateService.js';
 
-class addBuffForm {
-    constructor(creature, onSubmitFormCallback) {
-        this.onSubmitFormCallback = onSubmitFormCallback;
+let form;
+
+document.addEventListener("click", function(e) {
+    const target = e.target.closest("#submit-buff-form");
+  
+    if(target){
+        form.submitBuffForm();
+    }
+});
+
+document.addEventListener("click", function(e) {
+    const target = e.target.closest("#trigger-buff-form");
+  
+    if(target) {
+        const creatureIndex = target.value;
+        form = new addBuffForm(creatureIndex);
+    }
+});
+
+export default class addBuffForm {
+    constructor(creature) {
         this.creature = creature;
 
         setBuffFormHtml();
@@ -21,7 +40,7 @@ class addBuffForm {
 
         html += `
             </select>
-            <button onclick='submitBuffForm()'>Add Buff</button>
+            <button id='submit-buff-form'>Add Buff</button>
             <button onclick='cancelBuffSubmission()'>Cancel</button>
         `
 
@@ -35,12 +54,13 @@ class addBuffForm {
         {
             InvalidStateService.setInvalidState("Please choose a buff.");
         }
-
-        creature.addBuff(name);
+        else {
+            creature.addBuff(name);
         
-        document.getElementById('add-buff-form').innerHTML = '';
-        InvalidStateService.resetInvalidState();
-        onSubmitFormCallback();
+            document.getElementById('add-buff-form').innerHTML = '';
+            InvalidStateService.resetInvalidState();
+            EncounterStateService.refreshTrackedCreaturesDOM()
+        }
     }
 
     cancelBuffSubmission()
@@ -49,5 +69,3 @@ class addBuffForm {
         InvalidStateService.resetInvalidState();
     }
 }
-
-export default addBuffForm;

@@ -1,4 +1,4 @@
-import roundStatusTracker from './round-status-tracker.js';
+import encounterStateService from './encounterStateService.js';
 
-window.startTrackingAsync = roundStatusTracker.startTrackingAsync;
-window.handleInitiativeEvents = roundStatusTracker.handleInitiativeEvents;
+window.startTrackingAsync = encounterStateService.startTrackingAsync;
+window.handleInitiativeEvents = encounterStateService.handleInitiativeEvents;

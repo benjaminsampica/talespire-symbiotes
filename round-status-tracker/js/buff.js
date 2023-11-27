@@ -1,4 +1,4 @@
-class Buff {
+export default class Buff {
     constructor(name, roundDuration) {
         this.name = name;
         this.roundDuration = roundDuration;
@@ -10,5 +10,3 @@ class Buff {
         ]
     }
 }
-
-export default Buff
