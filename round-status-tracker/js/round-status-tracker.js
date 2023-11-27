@@ -1,5 +1,6 @@
 import TrackedCreature from './trackedCreature.js';
-import AddBuffForm from './add-buff.js';
+import AddBuffForm from './addBuffForm.js';
+import { setInvalidState, resetInvalidState } from `./invalidStateTracker.js`;
 
 var trackedCreatures = [];
 var round;
@@ -184,16 +185,6 @@ function removeCondition(creatureIndex, name) {
     refreshTrackedCreaturesDOM(trackedCreatures);
 }
 
-function setInvalidState(message) {
-    document.getElementById("invalid-state").classList.remove("d-none");
-    document.getElementById("invalid-state-message").innerHTML = message;
-}
-
-function resetInvalidState() {
-    document.getElementById("invalid-state").classList.add("d-none");
-    document.getElementById("invalid-state-message").innerHTML = '';
-}
-
 function triggerNewRound(isIncrementing) {
     if(isIncrementing)
     {
@@ -206,7 +197,4 @@ function triggerNewRound(isIncrementing) {
     document.getElementById("round-count").innerHTML = round;
 }
 
-export default { updateTurnForCreatures, remapCreatures, buildTrackedCreaturesHtml, calculateNewRoundStatus };
-
-window.startTrackingAsync = startTrackingAsync;
-window.handleInitiativeEvents = handleInitiativeEvents;
+export default { updateTurnForCreatures, remapCreatures, buildTrackedCreaturesHtml, calculateNewRoundStatus, startTrackingAsync, handleInitiativeEvents };
