@@ -1,7 +1,7 @@
 import Buff from "./buff.js";
 import Condition from "./condition.js";
 
-class TrackedCreature {
+export default class TrackedCreature {
     constructor(id, name) {
         this.id = id;
         this.name = name;
@@ -49,5 +49,3 @@ class TrackedCreature {
         this.buffs.find(b => b.name == name).roundDuration--;
     }
 }
-
-export default TrackedCreature
