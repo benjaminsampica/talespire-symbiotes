@@ -11,11 +11,11 @@ export default class CreatureStateService {
     async populateTalespireCreaturesAsync()
     {
         const taleSpireQueue = await TS.initiative.getQueue();
-        this.trackedCreatures = mapOnlyCreatures(taleSpireQueue.items);
+        this.trackedCreatures = this.mapOnlyCreatures(taleSpireQueue.items);
     }
 
     remapCreatures(items) {
-        let actualTrackedCreatures = mapOnlyCreatures(items);
+        let actualTrackedCreatures = this.mapOnlyCreatures(items);
     
         return actualTrackedCreatures
             .map(atc => {
@@ -56,58 +56,72 @@ export default class CreatureStateService {
     overrideIncrementBuff(creatureIndex, buffIndex) {
         this.trackedCreatures[creatureIndex].overrideIncrementBuff(buffIndex);
 
-        onCreatureChangedCallback();
+        this.onCreatureChangedCallback();
     }
     
     overrideDecrementBuff(creatureIndex, buffIndex) {
         this.trackedCreatures[creatureIndex].overrideDecrementBuff(buffIndex);
 
-        onCreatureChangedCallback();
+        this.onCreatureChangedCallback();
     }
 
     removeCondition(creatureIndex, name) {
         this.trackedCreatures[creatureIndex].removeCondition(name);
+
+        this.onCreatureChangedCallback();
     }
 
     removeBuff(creatureIndex, name) {
         this.trackedCreatures[creatureIndex].removeBuff(name);
+
+        this.onCreatureChangedCallback();
     }
 
-    buildTrackedCreaturesHtml(trackedCreatures) {
+    buildTrackedCreaturesHtml() {
         const nameTemplate = `
-        <div class="creature">
-            <h3>name</h3>
-            <button value="creatureIndex" id='trigger-buff-form' class="buff-icon ml-auto"><i class="ts-icon-character-arrow-up"></i></button>
-            <button value="creatureIndex" id='trigger-condition-form' class="condition-icon"><i class="ts-icon-character-confused"></i></button>
+        <div class="creature mt-1 mb-1">
+            <h3 class='d-flex align-center'>name</h3>
+            <button value="creatureIndex" id='trigger-buff-form' class="buff-icon-button ml-auto"><i class="ts-icon-character-arrow-up ts-icon-small"></i></button>
+            <button value="creatureIndex" id='trigger-condition-form' class="condition-icon"><i class="ts-icon-character-confused ts-icon-small"></i></button>
         </div>
         `;
         const buffTemplate = `
-        <div class='buff'>
-            <i class="ts-icon-character-arrow-up buff-icon"></i>
-            <p>name</p>
-            <button class='ml-auto' id='trigger-override-buff-increment' data-buff='name' data-creatureIndex='creatureIndex'>+</button>
-            <p>duration</p>
-            <button id='trigger-override-buff-decrement' data-buff='name' data-creatureIndex='creatureIndex'>-</button>
-            <button id='trigger-buff-removal' data-buff='name' data-creatureIndex='creatureIndex'>X</button>
+        <div class='buff mt-1 mb-1'>
+            <i class="ts-icon-character-arrow-up buff-icon-standalone icon-standalone ts-icon-small"></i>
+            <h4 class='d-flex align-center'>name</h4>
+            <button class='ml-auto' id='trigger-override-buff-increment' data-buff='name' data-index='creatureIndex'>
+                <i class='ts-icon-plus ts-icon-xsmall'></i>
+            </button>
+            <h3>duration</h3>
+            <button id='trigger-override-buff-decrement' data-buff='name' data-index='creatureIndex'>
+                <i class='ts-icon-minus ts-icon-xsmall'></i>
+            </button>
+            <button id='trigger-buff-removal' data-buff='name' data-index='creatureIndex'>
+                <i class='ts-icon-remove ts-icon-xsmall'></i>
+            </button>
         </div>
         `;
         const conditionTemplate = `
-        <div class='condition'>
-            <i class="tts-icon-character-confused condition-icon"></i>
-            <p>name</p>
-            <button class='ml-auto' id='trigger-condition-removal' data-condition='name' data-creatureIndex='creatureIndex'>X</button>
+        <div class='condition mt-1 mb-1'>
+            <i class="ts-icon-character-confused condition-icon-standalone icon-standalone ts-icon-small"></i>
+            <h5 class='d-flex align-center'>name</h5>
+            <button class='ml-auto' id='trigger-condition-removal' data-condition='name' data-index='creatureIndex'>
+                <i class='ts-icon-remove ts-icon-xsmall'></i>
+            </button>
         </div>
         `;
     
-        let trackedCreatureHtml = '<div>';
-        trackedCreatures.forEach((tc, i) => {
-            trackedCreatureHtml += nameTemplate.replace('name', tc.name);
+        let trackedCreaturesHtml = '';
+        this.trackedCreatures.forEach((tc, i) => {
+            let trackedCreatureHtml = `<div class='inactive'>`
             if (i == this.activeCreatureIndex) {
-                trackedCreatureHtml = trackedCreatureHtml.replace('creature', 'creature active')
+                trackedCreatureHtml = trackedCreatureHtml.replace('inactive', 'active')
             }
+            trackedCreatureHtml += nameTemplate.replace('name', tc.name)
+                .replace(new RegExp('creatureIndex', 'g'), i);
     
             tc.buffs.forEach(b => {
-                if (b.roundDuration >= 0) {
+                if (b.roundDuration > 0) {
                     trackedCreatureHtml += buffTemplate.replace(new RegExp('name', 'g'), b.name)
                         .replace(new RegExp('creatureIndex', 'g'), i)
                         .replace('duration', b.roundDuration);
@@ -118,9 +132,13 @@ export default class CreatureStateService {
                 trackedCreatureHtml += conditionTemplate.replace(new RegExp('name', 'g'), c.name)
                     .replace(new RegExp('creatureIndex', 'g'), i);
             });
+
+            trackedCreatureHtml += `</div>`;
+
+            trackedCreaturesHtml += trackedCreatureHtml;
         });
-        trackedCreatureHtml += '<div>';
+        trackedCreaturesHtml += '';
     
-        return trackedCreatureHtml;
+        return trackedCreaturesHtml;
     }
 }

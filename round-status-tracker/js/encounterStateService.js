@@ -1,15 +1,69 @@
 import CreatureStateService from './creatureStateService.js';
 import InvalidStateService from './invalidStateService.js';
+import AddConditionForm from './addConditionForm.js';
+import AddBuffForm from './addBuffForm.js';
 
 let round;
+let addBuffForm;
+let addConditionForm;
 const creatureStateService = new CreatureStateService(refreshTrackedCreaturesDOM);
+
+document.addEventListener("click", function(e) {
+    const target = e.target.closest("#trigger-condition-form");
+  
+    if(target) {
+        const creatureIndex = target.value;
+        addConditionForm = new AddConditionForm(creatureStateService.trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM);
+    }
+});
+
+document.addEventListener("click", function(e) {
+    const target = e.target.closest("#submit-condition-form");
+  
+    if(target){
+        addConditionForm.submit();
+    }
+});
+
+document.addEventListener("click", function(e) {
+    const target = e.target.closest("#cancel-condition-form");
+  
+    if(target){
+        addConditionForm.cancel();
+    }
+});
+
+document.addEventListener("click", function(e) {
+    const target = e.target.closest("#trigger-buff-form");
+  
+    if(target) {
+        const creatureIndex = target.value;
+        addBuffForm = new AddBuffForm(creatureStateService.trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM);
+    }
+});
+
+document.addEventListener("click", function(e) {
+    const target = e.target.closest("#submit-buff-form");
+  
+    if(target){
+        addBuffForm.submit();
+    }
+});
+
+document.addEventListener("click", function(e) {
+    const target = e.target.closest("#cancel-buff-form");
+  
+    if(target){
+        addBuffForm.cancel();
+    }
+});
 
 document.addEventListener("click", function(e) {
     const target = e.target.closest("#trigger-override-buff-increment");
   
     if(target){
         let buff = target.dataset.buff;
-        let index = target.dataset.creatureIndex;
+        let index = target.dataset.index;
         creatureStateService.overrideIncrementBuff(index, buff)
     }
 });
@@ -19,7 +73,7 @@ document.addEventListener("click", function(e) {
   
     if(target) {
         let buff = target.dataset.buff;
-        let index = target.dataset.creatureIndex;
+        let index = target.dataset.index;
         creatureStateService.overrideDecrementBuff(index, buff)
     }
 });
@@ -29,7 +83,7 @@ document.addEventListener("click", function(e) {
   
     if(target) {
         let buff = target.dataset.buff;
-        let index = target.dataset.creatureIndex;
+        let index = target.dataset.index;
         creatureStateService.removeBuff(index, buff)
     }
 });
@@ -48,7 +102,7 @@ async function startTrackingAsync() {
     round = 0;
     await creatureStateService.populateTalespireCreaturesAsync();
 
-    if (trackedCreatures.length <= 2) {
+    if (creatureStateService.trackedCreatures.length <= 2) {
         InvalidStateService.setInvalidState("There must be 3 or more creatures in the initiative queue to start tracking.");
     }
     else {
@@ -102,7 +156,6 @@ function triggerNewRound(isIncrementing) {
 }
 
 export default {
-    buildTrackedCreaturesHtml, 
     calculateNewRoundStatus, 
     startTrackingAsync, 
     handleInitiativeEvents

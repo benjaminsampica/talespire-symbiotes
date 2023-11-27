@@ -7,7 +7,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
     background-color: var(--ts-background-secondary);
     color: var(--ts-color-primary);
     font-family: 'OptimusPrinceps', sans-serif;
@@ -45,12 +46,38 @@ button:focus-visible {
     background-color: var(--ts-button-hover);
 }
 
+.w-100 {
+    width: 100%;
+}
+
+.mt-1 {
+    margin-top: 5px;
+}
+
+.mb-1 {
+    margin-bottom: 5px;
+}
+
+.mr-1 {
+    margin-right: 5px;
+}
+
 .d-none {
     display: none;
 }
 
-.creature {
+.d-flex {
     display: flex;
+}
+
+.align-center
+{
+    align-items: center;
+}
+
+.creature, .buff, .condition {
+    display: flex;
+    gap: 5px;
 }
 
 .ml-auto {
@@ -59,10 +86,27 @@ button:focus-visible {
 
 .condition-icon {
     background-color: var(--ts-color-danger);
+    border-radius: 5px;
 }
 
-.buff-icon {
+.condition-icon-standalone
+{
+    filter: invert(28%) sepia(100%) hue-rotate(315deg) saturate(10);
+}
+
+.buff-icon-button {
     background-color: rgb(34, 187, 51);
+    border-radius: 5px;
+}
+
+.buff-icon-standalone
+{
+    filter: invert(28%) sepia(100%) hue-rotate(71deg) saturate(3);
+}
+
+.icon-standalone {
+    display: flex;
+    align-self: center;
 }
 
 .active {
@@ -70,4 +114,6 @@ button:focus-visible {
     border-radius: 5px;
     border-style: solid;
     border-width: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
