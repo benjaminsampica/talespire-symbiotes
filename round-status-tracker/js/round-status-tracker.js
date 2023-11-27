@@ -150,11 +150,6 @@ function addBuff(creatureIndex) {
     addBuffForm = new AddBuffForm(trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM(trackedCreatures));
 }
 
-function cancelBuffSubmission()
-{
-    addBuffForm.cancelBuffSubmission();
-}
-
 function removeBuff(creatureIndex, name) {
     trackedCreatures[creatureIndex].removeBuff(name);
 

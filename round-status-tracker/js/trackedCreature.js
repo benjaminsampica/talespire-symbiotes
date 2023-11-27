@@ -7,23 +7,18 @@ class TrackedCreature {
         this.name = name;
         this.buffs = [];
         this.conditions = [];
-        this.round = 0;
     }
 
     incrementRound() {
         this.buffs.forEach(b => {
             b.roundDuration--;
         });;
-
-        this.round++;
     }
 
     decrementRound() {
         this.buffs.forEach((b, i) => {
             b.roundDuration++;
         });;
-
-        this.round--;
     }
 
     addBuff(name) {

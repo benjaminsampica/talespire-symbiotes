@@ -46,7 +46,7 @@ class addBuffForm {
     cancelBuffSubmission()
     {
         document.getElementById('add-buff-form').innerHTML = '';
-        resetInvalidState();
+        InvalidStateService.resetInvalidState();
     }
 }
 
