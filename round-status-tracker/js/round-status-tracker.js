@@ -1,11 +1,11 @@
 import TrackedCreature from './trackedCreature.js';
 import AddBuffForm from './addBuffForm.js';
+import AddConditionForm from './addConditionForm.js';
 import InvalidStateService from './invalidStateService.js';
 
 var trackedCreatures = [];
 var round;
 var activeCreatureIndex = 0;
-var addBuffForm;
 
 async function startTrackingAsync() {
     round = 0;
@@ -100,8 +100,8 @@ function buildTrackedCreaturesHtml(trackedCreatures, activeCreatureIndex) {
     const nameTemplate = `
     <div class="creature">
         <h3>name</h3>
-        <button onclick="addBuff(creatureIndex, name)" class="buff-icon ml-auto"><i class="ts-icon-character-arrow-up"></i></button>
-        <button onclick="addCondition(creatureIndex, name)" class="condition-icon"><i class="ts-icon-character-confused"></i></button>
+        <button onclick="triggerBuffForm(creatureIndex)" class="buff-icon ml-auto"><i class="ts-icon-character-arrow-up"></i></button>
+        <button onclick="triggerConditionForm(creatureIndex)" class="condition-icon"><i class="ts-icon-character-confused"></i></button>
     </div>
     `;
     const buffTemplate = `
@@ -146,8 +146,12 @@ function buildTrackedCreaturesHtml(trackedCreatures, activeCreatureIndex) {
     return trackedCreatureHtml;
 }
 
-function addBuff(creatureIndex) {
-    addBuffForm = new AddBuffForm(trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM(trackedCreatures));
+function triggerBuffForm(creatureIndex) {
+    new AddBuffForm(trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM(trackedCreatures));
+}
+
+function triggerConditionForm(creatureIndex) {
+    new AddConditionForm(trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM(trackedCreatures));
 }
 
 function removeBuff(creatureIndex, name) {
@@ -164,12 +168,6 @@ function overrideIncrementBuff(creatureIndex, buffIndex) {
 
 function overrideDecrementBuff(creatureIndex, buffIndex) {
     trackedCreatures[creatureIndex].overrideDecrementBuff(buffIndex);
-
-    refreshTrackedCreaturesDOM(trackedCreatures);
-}
-
-function addCondition(creatureIndex, name) {
-    trackedCreatures[creatureIndex].addCondition(name);
 
     refreshTrackedCreaturesDOM(trackedCreatures);
 }
