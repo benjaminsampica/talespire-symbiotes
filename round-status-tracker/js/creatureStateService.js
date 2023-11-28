@@ -19,7 +19,7 @@ export default class CreatureStateService {
             .map(atc => {
                 const existingTrackedCreature = this.trackedCreatures.find(etc => etc.id == atc.id);
                 if (existingTrackedCreature !== undefined) {
-                    atc.buffs = existingTrackedCreature.buffs;
+                    atc.effects = existingTrackedCreature.effects;
                     atc.round = existingTrackedCreature.round;
                     atc.conditions = existingTrackedCreature.conditions;
                 }
@@ -53,14 +53,14 @@ export default class CreatureStateService {
         this.onCreatureChangedCallback();
     }
 
-    overrideIncrementBuff(creatureIndex, buffIndex) {
-        this.trackedCreatures[creatureIndex].overrideIncrementBuff(buffIndex);
+    overrideIncrementEffect(creatureIndex, effectIndex) {
+        this.trackedCreatures[creatureIndex].overrideIncrementEffect(effectIndex);
 
         this.onCreatureChangedCallback();
     }
 
-    overrideDecrementBuff(creatureIndex, buffIndex) {
-        this.trackedCreatures[creatureIndex].overrideDecrementBuff(buffIndex);
+    overrideDecrementEffect(creatureIndex, effectIndex) {
+        this.trackedCreatures[creatureIndex].overrideDecrementEffect(effectIndex);
 
         this.onCreatureChangedCallback();
     }
@@ -71,8 +71,8 @@ export default class CreatureStateService {
         this.onCreatureChangedCallback();
     }
 
-    removeBuff(creatureIndex, name) {
-        this.trackedCreatures[creatureIndex].removeBuff(name);
+    removeEffect(creatureIndex, name) {
+        this.trackedCreatures[creatureIndex].removeEffect(name);
 
         this.onCreatureChangedCallback();
     }
@@ -81,22 +81,22 @@ export default class CreatureStateService {
         const nameTemplate = `
         <div class="creature mt-1 mb-1">
             <h3 class='d-flex align-center'>name</h3>
-            <button value="creatureIndex" id='trigger-buff-form' class="buff-icon-button ml-auto"><i class="ts-icon-character-arrow-up ts-icon-small"></i></button>
+            <button value="creatureIndex" id='trigger-effect-form' class="effect-icon-button ml-auto"><i class="ts-icon-character-arrow-up ts-icon-small"></i></button>
             <button value="creatureIndex" id='trigger-condition-form' class="condition-icon"><i class="ts-icon-character-confused ts-icon-small"></i></button>
         </div>
         `;
-        const buffTemplate = `
-        <div class='buff mt-1 mb-1'>
-            <i class="ts-icon-character-arrow-up buff-icon-standalone icon-standalone ts-icon-small"></i>
+        const effectTemplate = `
+        <div class='effect mt-1 mb-1'>
+            <i class="ts-icon-character-arrow-up effect-icon-standalone icon-standalone ts-icon-small"></i>
             <h4 class='d-flex align-center'>name</h4>
-            <button class='ml-auto' id='trigger-override-buff-increment' data-buff='name' data-index='creatureIndex'>
+            <button class='ml-auto' id='trigger-override-effect-increment' data-effect='name' data-index='creatureIndex'>
                 <i class='ts-icon-plus ts-icon-xsmall'></i>
             </button>
             <h3>duration</h3>
-            <button id='trigger-override-buff-decrement' data-buff='name' data-index='creatureIndex'>
+            <button id='trigger-override-effect-decrement' data-effect='name' data-index='creatureIndex'>
                 <i class='ts-icon-minus ts-icon-xsmall'></i>
             </button>
-            <button id='trigger-buff-removal' data-buff='name' data-index='creatureIndex'>
+            <button id='trigger-effect-removal' data-effect='name' data-index='creatureIndex'>
                 <i class='ts-icon-remove ts-icon-xsmall'></i>
             </button>
         </div>
@@ -122,9 +122,9 @@ export default class CreatureStateService {
             trackedCreatureHtml += nameTemplate.replace('name', tc.name)
                 .replace(new RegExp('creatureIndex', 'g'), i);
 
-            tc.buffs.forEach(b => {
+            tc.effects.forEach(b => {
                 if (b.roundDuration > 0) {
-                    trackedCreatureHtml += buffTemplate.replace(new RegExp('name', 'g'), b.name)
+                    trackedCreatureHtml += effectTemplate.replace(new RegExp('name', 'g'), b.name)
                         .replace(new RegExp('creatureIndex', 'g'), i)
                         .replace('duration', b.roundDuration);
                 }

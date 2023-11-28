@@ -1,34 +1,34 @@
-import Buff from "./buff.js";
+import Effect from "./effect.js";
 import Condition from "./condition.js";
 
 export default class TrackedCreature {
     constructor(id, name) {
         this.id = id;
         this.name = name;
-        this.buffs = [];
+        this.effects = [];
         this.conditions = [];
     }
 
     incrementRound() {
-        this.buffs.forEach(b => {
+        this.effects.forEach(b => {
             b.roundDuration--;
         });;
     }
 
     decrementRound() {
-        this.buffs.forEach((b, i) => {
+        this.effects.forEach((b, i) => {
             b.roundDuration++;
         });;
     }
 
-    addBuff(name) {
-        if (this.buffs.find(b => b.name === name)) return;
+    addEffect(name) {
+        if (this.effects.find(b => b.name === name)) return;
 
-        this.buffs.push(Buff.list().find(b => b.name === name));
+        this.effects.push(Effect.list().find(b => b.name === name));
     }
 
-    removeBuff(name) {
-        this.buffs = this.buffs.filter(b => b.name !== name);
+    removeEffect(name) {
+        this.effects = this.effects.filter(b => b.name !== name);
     }
 
     addCondition(name) {
@@ -41,11 +41,11 @@ export default class TrackedCreature {
         this.conditions = this.conditions.filter(c => name !== c.name);
     }
 
-    overrideIncrementBuff(name) {
-        this.buffs.find(b => b.name === name).roundDuration++;
+    overrideIncrementEffect(name) {
+        this.effects.find(b => b.name === name).roundDuration++;
     }
 
-    overrideDecrementBuff(name) {
-        this.buffs.find(b => b.name == name).roundDuration--;
+    overrideDecrementEffect(name) {
+        this.effects.find(b => b.name == name).roundDuration--;
     }
 }

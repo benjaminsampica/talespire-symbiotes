@@ -45,7 +45,7 @@ test('missing creatures are removed', () => {
 
 test('when any turn happens, the success callback is invoked.', () => {
     const creature0 = new TrackedCreature(1, 'Test');
-    creature0.addBuff('Heroism');
+    creature0.addEffect('Heroism');
 
     let sut = new CreatureStateService(fakeSuccessCallback, [creature0]);
 
@@ -54,58 +54,58 @@ test('when any turn happens, the success callback is invoked.', () => {
     expect(successCallbackResult).toEqual(true);
 });
 
-test('when a turn increments from creature 0 to 1, then creature 0 buff durations go down by 1', () => {
+test('when a turn increments from creature 0 to 1, then creature 0 effect durations go down by 1', () => {
     const creature0 = new TrackedCreature(1, 'Test');
-    creature0.addBuff('Heroism');
+    creature0.addEffect('Heroism');
 
     const creature1 = new TrackedCreature(1, 'Test');
-    creature1.addBuff('Heroism');
+    creature1.addEffect('Heroism');
 
     let sut = new CreatureStateService(fakeSuccessCallback, [creature0, creature1]);
 
     sut.updateTurnForCreatures(1);
 
-    expect(creature0.buffs[0].roundDuration).toEqual(9);
+    expect(creature0.effects[0].roundDuration).toEqual(9);
 });
 
-test('when a turn decrements from creature 1 to 0, then creature 0 buff durations go up by 1', () => {
+test('when a turn decrements from creature 1 to 0, then creature 0 effect durations go up by 1', () => {
     const creature0 = new TrackedCreature(1, 'Test');
-    creature0.addBuff('Heroism');
+    creature0.addEffect('Heroism');
 
     const creature1 = new TrackedCreature(1, 'Test');
-    creature1.addBuff('Heroism');
+    creature1.addEffect('Heroism');
 
     let sut = new CreatureStateService(fakeSuccessCallback, [creature0, creature1]);
 
     sut.updateTurnForCreatures(1);
 
-    expect(creature0.buffs[0].roundDuration).toEqual(9);
+    expect(creature0.effects[0].roundDuration).toEqual(9);
 
     sut.updateTurnForCreatures(0);
 
-    expect(creature0.buffs[0].roundDuration).toEqual(10);
+    expect(creature0.effects[0].roundDuration).toEqual(10);
 });
 
-test('when a turn increments from creature 0 to 1 to 2 to 0 then decrements to 2, then creature 2 buff durations go up by 1', () => {
+test('when a turn increments from creature 0 to 1 to 2 to 0 then decrements to 2, then creature 2 effect durations go up by 1', () => {
     const creature0 = new TrackedCreature(1, 'Test');
-    creature0.addBuff('Heroism');
+    creature0.addEffect('Heroism');
 
     const creature1 = new TrackedCreature(1, 'Test');
-    creature1.addBuff('Heroism');
+    creature1.addEffect('Heroism');
 
     const creature2 = new TrackedCreature(1, 'Test');
-    creature2.addBuff('Heroism');
+    creature2.addEffect('Heroism');
     let sut = new CreatureStateService(fakeSuccessCallback, [creature0, creature1, creature2]);
 
     sut.updateTurnForCreatures(1);
     sut.updateTurnForCreatures(2);
     sut.updateTurnForCreatures(0, true);
 
-    expect(creature2.buffs[0].roundDuration).toEqual(9);
+    expect(creature2.effects[0].roundDuration).toEqual(9);
 
     sut.updateTurnForCreatures(2, true);
 
-    expect(creature2.buffs[0].roundDuration).toEqual(10);
+    expect(creature2.effects[0].roundDuration).toEqual(10);
 });
 
 test('when the current creature is active, then has active class', () => {
@@ -140,10 +140,10 @@ test('when there are multiple creatures, then builds multiple html elements', ()
     expect(result).toEqual(expect.stringContaining('Test2'));
 });
 
-test('when there is a creature with multiple buffs, then builds multiple buffs', () => {
+test('when there is a creature with multiple effects, then builds multiple effects', () => {
     const creature = new TrackedCreature(1, 'Test1');
-    creature.addBuff('Heroism');
-    creature.addBuff('Bless');
+    creature.addEffect('Heroism');
+    creature.addEffect('Bless');
 
     let sut = new CreatureStateService(null, [creature]);
 

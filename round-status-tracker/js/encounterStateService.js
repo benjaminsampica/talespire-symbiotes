@@ -1,10 +1,10 @@
 import CreatureStateService from './creatureStateService.js';
 import InvalidStateService from './invalidStateService.js';
 import AddConditionForm from './addConditionForm.js';
-import AddBuffForm from './addBuffForm.js';
+import AddEffectForm from './addEffectForm.js';
 
 let round;
-let addBuffForm;
+let addEffectForm;
 let addConditionForm;
 const creatureStateService = new CreatureStateService(refreshTrackedCreaturesDOM);
 
@@ -34,57 +34,57 @@ document.addEventListener("click", function (e) {
 });
 
 document.addEventListener("click", function (e) {
-    const target = e.target.closest("#trigger-buff-form");
+    const target = e.target.closest("#trigger-effect-form");
 
     if (target) {
         const creatureIndex = target.value;
-        addBuffForm = new AddBuffForm(creatureStateService.trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM);
+        addEffectForm = new AddEffectForm(creatureStateService.trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM);
     }
 });
 
 document.addEventListener("click", function (e) {
-    const target = e.target.closest("#submit-buff-form");
+    const target = e.target.closest("#submit-effect-form");
 
     if (target) {
-        addBuffForm.submit();
+        addEffectForm.submit();
     }
 });
 
 document.addEventListener("click", function (e) {
-    const target = e.target.closest("#cancel-buff-form");
+    const target = e.target.closest("#cancel-effect-form");
 
     if (target) {
-        addBuffForm.cancel();
+        addEffectForm.cancel();
     }
 });
 
 document.addEventListener("click", function (e) {
-    const target = e.target.closest("#trigger-override-buff-increment");
+    const target = e.target.closest("#trigger-override-effect-increment");
 
     if (target) {
-        let buff = target.dataset.buff;
+        let effect = target.dataset.effect;
         let index = target.dataset.index;
-        creatureStateService.overrideIncrementBuff(index, buff)
+        creatureStateService.overrideIncrementEffect(index, effect)
     }
 });
 
 document.addEventListener("click", function (e) {
-    const target = e.target.closest("#trigger-override-buff-decrement");
+    const target = e.target.closest("#trigger-override-effect-decrement");
 
     if (target) {
-        let buff = target.dataset.buff;
+        let effect = target.dataset.effect;
         let index = target.dataset.index;
-        creatureStateService.overrideDecrementBuff(index, buff)
+        creatureStateService.overrideDecrementEffect(index, effect)
     }
 });
 
 document.addEventListener("click", function (e) {
-    const target = e.target.closest("#trigger-buff-removal");
+    const target = e.target.closest("#trigger-effect-removal");
 
     if (target) {
-        let buff = target.dataset.buff;
+        let effect = target.dataset.effect;
         let index = target.dataset.index;
-        creatureStateService.removeBuff(index, buff)
+        creatureStateService.removeEffect(index, effect)
     }
 });
 
@@ -130,7 +130,7 @@ function calculateNewRoundStatus(activeCreatureIndex, actualCreatureIndex) {
     // Example: 10 creatures on initiative list (0 thru 9)
     // 1. Creature 9 finishes their turn and the turn moves back to Creature 0 (new round)
     // 2. Creature 0 is still taking their turn but Creature 9 forgot to do something and the turn moves back (new round).
-    // NOTE: There is a limitation for only _two_ creatures. There isn't enough data available from Talespire to determine if the turn went backwards or went to a new round.
+    // NOTE: There is a limitation for only _two_ creatures. There isn't enough data available from TaleSpire to determine if the turn went backwards or went to a new round.
 
     const isNewRound = activeCreatureIndex - 1 !== actualCreatureIndex && activeCreatureIndex + 1 !== actualCreatureIndex;
     const isRoundIncrementing = actualCreatureIndex < activeCreatureIndex;

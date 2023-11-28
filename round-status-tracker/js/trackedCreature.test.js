@@ -1,45 +1,45 @@
 import TrackedCreature from './trackedCreature';
 
-test('when a round is incremented, all buffs durations are decremented', () => {
+test('when a round is incremented, all effects durations are decremented', () => {
     let sut = new TrackedCreature(1, 'Test');
-    sut.addBuff('Heroism');
-    sut.addBuff('Heroism');
+    sut.addEffect('Heroism');
+    sut.addEffect('Heroism');
 
     sut.incrementRound();
 
-    sut.buffs.forEach(b => {
+    sut.effects.forEach(b => {
         expect(b.roundDuration).toEqual(9);
     });
 });
 
-test('when a round is decremented, all buffs durations are incremented', () => {
+test('when a round is decremented, all effects durations are incremented', () => {
     let sut = new TrackedCreature(1, 'Test');
-    sut.addBuff('Heroism');
-    sut.addBuff('Heroism');
+    sut.addEffect('Heroism');
+    sut.addEffect('Heroism');
 
     sut.decrementRound();
 
-    sut.buffs.forEach(b => {
+    sut.effects.forEach(b => {
         expect(b.roundDuration).toEqual(11);
     });
 });
 
-test('overwritten incremented buff duration is increased by 1', () => {
+test('overwritten incremented effect duration is increased by 1', () => {
     let sut = new TrackedCreature(1, 'Test');
-    sut.addBuff('Heroism');
+    sut.addEffect('Heroism');
 
-    sut.overrideIncrementBuff('Heroism');
+    sut.overrideIncrementEffect('Heroism');
 
-    expect(sut.buffs[0].roundDuration).toEqual(11);
+    expect(sut.effects[0].roundDuration).toEqual(11);
 });
 
-test('overwritten decremented buff duration is decreased by 1', () => {
+test('overwritten decremented effect duration is decreased by 1', () => {
     let sut = new TrackedCreature(1, 'Test');
-    sut.addBuff('Heroism');
+    sut.addEffect('Heroism');
 
-    sut.overrideDecrementBuff('Heroism');
+    sut.overrideDecrementEffect('Heroism');
 
-    expect(sut.buffs[0].roundDuration).toEqual(9);
+    expect(sut.effects[0].roundDuration).toEqual(9);
 });
 
 test('conditions can be added', () => {
@@ -68,29 +68,29 @@ test('conditions can be removed', () => {
     expect(sut.conditions).toHaveLength(0);
 });
 
-test('buffs can be added', () => {
+test('effects can be added', () => {
     let sut = new TrackedCreature(1, 'Test');
 
-    sut.addBuff('Bless');
+    sut.addEffect('Bless');
 
-    expect(sut.buffs).toHaveLength(1);
+    expect(sut.effects).toHaveLength(1);
 });
 
-test('buffs cant be added twice', () => {
+test('effects cant be added twice', () => {
     let sut = new TrackedCreature(1, 'Test');
 
-    sut.addBuff('Bless');
-    sut.addBuff('Bless');
+    sut.addEffect('Bless');
+    sut.addEffect('Bless');
 
-    expect(sut.buffs).toHaveLength(1);
+    expect(sut.effects).toHaveLength(1);
 });
 
-test('buffs can be removed', () => {
+test('effects can be removed', () => {
     let sut = new TrackedCreature(1, 'Test');
 
-    sut.addBuff('Bless');
-    sut.removeBuff('Bless');
+    sut.addEffect('Bless');
+    sut.removeEffect('Bless');
 
-    expect(sut.buffs).toHaveLength(0);
+    expect(sut.effects).toHaveLength(0);
 });
 
