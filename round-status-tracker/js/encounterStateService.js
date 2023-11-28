@@ -6,7 +6,7 @@ import AddEffectForm from './addEffectForm.js';
 let round;
 let addEffectForm;
 let addConditionForm;
-const creatureStateService = new CreatureStateService(refreshTrackedCreaturesDOM);
+const creatureStateService = new CreatureStateService(refreshTrackedCreaturesDOM, [], 0, window.TS);
 
 document.addEventListener("click", function (e) {
     const target = e.target.closest("#trigger-condition-form");

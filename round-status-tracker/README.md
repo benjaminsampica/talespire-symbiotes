@@ -1,4 +1,4 @@
-Note: Due to the limitations of Talespire, this mod can only be used to track the status of 3 or more creatures. Unintended side effects may occur with 2 or less creatures.
+Note: Due to the limitations of TaleSpire, this mod can only be used to track the status of 3 or more creatures. Unintended side effects may occur with 2 or less creatures.
 
 Automatically tracks the initiative list with real-time adds/deletes and turn completion so you can easily track the round count and manage conditions / effects of all creatures on the initiative list.
 

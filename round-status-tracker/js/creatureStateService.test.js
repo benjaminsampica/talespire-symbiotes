@@ -1,10 +1,22 @@
 import TrackedCreature from './trackedCreature.js';
-import CreatureStateService from './creatureStateService.js'
+import CreatureStateService from './creatureStateService.js';
 
 const fakeTaleSpireQueueItem = {
     id: 1,
     name: 'Test',
     kind: 'creature'
+}
+
+const taleSpireService = {
+    creatures: {
+        getMoreInfo() {
+            return [
+                {
+                    link: "test link"
+                }
+            ]
+        }
+    }
 }
 
 let successCallbackResult;
@@ -14,18 +26,18 @@ beforeEach(() => {
 })
 
 test('new creatures map', () => {
-    let sut = new CreatureStateService();
+    let sut = new CreatureStateService(null, [], 0, taleSpireService);
     let items = [fakeTaleSpireQueueItem];
 
     sut.remapCreatures(items);
 
-    let expectedResult = [new TrackedCreature(1, 'Test')];
+    let expectedResult = [new TrackedCreature(1, 'Test', "test link")];
     expect(sut.trackedCreatures).toEqual(expectedResult);
 });
 
 test('existing creatures stay mapped', () => {
-    let existingTrackedCreatures = [new TrackedCreature(1, 'Test')];
-    let sut = new CreatureStateService(null, existingTrackedCreatures);
+    let existingTrackedCreatures = [new TrackedCreature(1, 'Test', "test link")];
+    let sut = new CreatureStateService(null, existingTrackedCreatures, 0, taleSpireService);
     let items = [fakeTaleSpireQueueItem];
 
     sut.remapCreatures(items);
@@ -35,7 +47,7 @@ test('existing creatures stay mapped', () => {
 
 test('missing creatures are removed', () => {
     let existingTrackedCreatures = [new TrackedCreature(1, 'Test')];
-    let sut = new CreatureStateService(null, existingTrackedCreatures);
+    let sut = new CreatureStateService(null, existingTrackedCreatures, 0, taleSpireService);
     let items = []
 
     sut.remapCreatures(items);

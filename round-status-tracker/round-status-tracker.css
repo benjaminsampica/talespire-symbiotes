@@ -11,7 +11,6 @@ input,
 select {
     background-color: var(--ts-background-secondary);
     color: var(--ts-color-primary);
-    font-family: 'OptimusPrinceps', sans-serif;
 
     border: 1px solid var(--ts-accessibility-border);
     border-radius: 4px;
@@ -95,7 +94,7 @@ button:focus-visible {
 }
 
 .buff-icon-button {
-    background-color: rgb(34, 164, 187);
+    background-color: rgb(126, 51, 211);
     border-radius: 5px;
 }
 
