@@ -1,23 +1,21 @@
 import TrackedCreature from './trackedCreature.js';
 
 export default class CreatureStateService {
-    constructor(onCreatureChangedCallback, trackedCreatures = [], activeCreatureIndex = 0)
-    {
+    constructor(onCreatureChangedCallback, trackedCreatures = [], activeCreatureIndex = 0) {
         this.trackedCreatures = trackedCreatures;
         this.activeCreatureIndex = activeCreatureIndex;
         this.onCreatureChangedCallback = onCreatureChangedCallback;
     }
 
-    async populateTalespireCreaturesAsync()
-    {
+    async populateTalespireCreaturesAsync() {
         const taleSpireQueue = await TS.initiative.getQueue();
         this.trackedCreatures = this.mapOnlyCreatures(taleSpireQueue.items);
     }
 
     remapCreatures(items) {
         let actualTrackedCreatures = this.mapOnlyCreatures(items);
-    
-        return actualTrackedCreatures
+
+        this.trackedCreatures = actualTrackedCreatures
             .map(atc => {
                 const existingTrackedCreature = this.trackedCreatures.find(etc => etc.id == atc.id);
                 if (existingTrackedCreature !== undefined) {
@@ -25,11 +23,11 @@ export default class CreatureStateService {
                     atc.round = existingTrackedCreature.round;
                     atc.conditions = existingTrackedCreature.conditions;
                 }
-    
+
                 return atc;
             });
     }
-    
+
     mapOnlyCreatures(items) {
         return items
             .filter(entry => entry.kind == "creature") // Talespire is planning on including other kinds of entries in the item list so we want to only include creature types.
@@ -40,7 +38,7 @@ export default class CreatureStateService {
         const turnHasIncremented = isNewRound
             ? this.activeCreatureIndex > actualCreatureIndex
             : this.activeCreatureIndex + 1 == actualCreatureIndex;
-    
+
         if (turnHasIncremented) {
             const lastTurnCreature = this.trackedCreatures[this.activeCreatureIndex];
             lastTurnCreature.incrementRound();
@@ -49,7 +47,7 @@ export default class CreatureStateService {
             const currentTurnCreature = this.trackedCreatures[actualCreatureIndex];
             currentTurnCreature.decrementRound();
         }
-    
+
         this.activeCreatureIndex = actualCreatureIndex;
     }
 
@@ -58,7 +56,7 @@ export default class CreatureStateService {
 
         this.onCreatureChangedCallback();
     }
-    
+
     overrideDecrementBuff(creatureIndex, buffIndex) {
         this.trackedCreatures[creatureIndex].overrideDecrementBuff(buffIndex);
 
@@ -110,16 +108,18 @@ export default class CreatureStateService {
             </button>
         </div>
         `;
-    
+
         let trackedCreaturesHtml = '';
         this.trackedCreatures.forEach((tc, i) => {
-            let trackedCreatureHtml = `<div class='inactive'>`
+            let trackedCreatureHtml = `<div class='creature-row'>`
+
             if (i == this.activeCreatureIndex) {
-                trackedCreatureHtml = trackedCreatureHtml.replace('inactive', 'active')
+                trackedCreatureHtml = trackedCreatureHtml.replace('creature-row', 'creature-row active')
             }
+
             trackedCreatureHtml += nameTemplate.replace('name', tc.name)
                 .replace(new RegExp('creatureIndex', 'g'), i);
-    
+
             tc.buffs.forEach(b => {
                 if (b.roundDuration > 0) {
                     trackedCreatureHtml += buffTemplate.replace(new RegExp('name', 'g'), b.name)
@@ -127,7 +127,7 @@ export default class CreatureStateService {
                         .replace('duration', b.roundDuration);
                 }
             });
-    
+
             tc.conditions.forEach(c => {
                 trackedCreatureHtml += conditionTemplate.replace(new RegExp('name', 'g'), c.name)
                     .replace(new RegExp('creatureIndex', 'g'), i);
@@ -138,7 +138,7 @@ export default class CreatureStateService {
             trackedCreaturesHtml += trackedCreatureHtml;
         });
         trackedCreaturesHtml += '';
-    
+
         return trackedCreaturesHtml;
     }
 }

@@ -28,7 +28,7 @@ test('overwritten incremented buff duration is increased by 1', () => {
     let sut = new TrackedCreature(1, 'Test');
     sut.addBuff('Heroism');
 
-    sut.overrideIncrementBuff(0);
+    sut.overrideIncrementBuff('Heroism');
 
     expect(sut.buffs[0].roundDuration).toEqual(11);
 });
@@ -37,7 +37,7 @@ test('overwritten decremented buff duration is decreased by 1', () => {
     let sut = new TrackedCreature(1, 'Test');
     sut.addBuff('Heroism');
 
-    sut.overrideDecrementBuff(0);
+    sut.overrideDecrementBuff('Heroism');
 
     expect(sut.buffs[0].roundDuration).toEqual(9);
 });

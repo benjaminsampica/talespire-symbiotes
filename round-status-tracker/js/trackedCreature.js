@@ -42,7 +42,7 @@ export default class TrackedCreature {
     }
 
     overrideIncrementBuff(name) {
-        this.buffs.find(b => b.name == name).roundDuration++;
+        this.buffs.find(b => b.name === name).roundDuration++;
     }
 
     overrideDecrementBuff(name) {
