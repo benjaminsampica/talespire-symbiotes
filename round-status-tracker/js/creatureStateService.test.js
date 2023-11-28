@@ -7,13 +7,14 @@ const fakeTaleSpireQueueItem = {
     kind: 'creature'
 }
 
-const taleSpireService = {}
-
 let successCallbackResult;
+function fakeSuccessCallback() {
+    successCallbackResult = true;
+}
 
 beforeEach(() => {
     successCallbackResult = false;
-})
+});
 
 test('new creatures map', () => {
     let sut = new CreatureStateService();
@@ -47,7 +48,6 @@ test('missing creatures are removed', () => {
 
 test('when any turn happens, the success callback is invoked.', () => {
     const creature0 = new TrackedCreature(1, 'Test');
-    creature0.addEffect('Heroism');
 
     let sut = new CreatureStateService(fakeSuccessCallback, [creature0]);
 
@@ -110,6 +110,22 @@ test('when a turn increments from creature 0 to 1 to 2 to 0 then decrements to 2
     expect(creature2.effects[0].roundDuration).toEqual(10);
 });
 
+test('given the last creature is removed from the board, when it was the active creature, then sets the active creature and does not error', () => {
+    let sut = new CreatureStateService(fakeSuccessCallback, [], 0);
+
+    expect(() => sut.updateTurnForCreatures(0)).not.toThrow();
+    expect(sut.activeCreatureIndex).toBe(0);
+});
+
+test('given a creature is removed from the board, when it was the active creature, then sets the active creature and does not error', () => {
+    const creature0 = new TrackedCreature(1, 'Test');
+    const creature1 = new TrackedCreature(1, 'Test');
+    let sut = new CreatureStateService(fakeSuccessCallback, [creature0, creature1], 2);
+
+    expect(() => sut.updateTurnForCreatures(0, true)).not.toThrow();
+    expect(sut.activeCreatureIndex).toBe(0);
+});
+
 test('when the current creature is active, then has active class', () => {
     const creature0 = new TrackedCreature(1, 'Test1');
 
@@ -169,7 +185,3 @@ test('when there is a creature with multiple conditions, then builds multiple co
     expect(result).toEqual(expect.stringContaining('Blinded'));
     expect(result).toEqual(expect.stringContaining('Charmed'));
 });
-
-function fakeSuccessCallback() {
-    successCallbackResult = true;
-}

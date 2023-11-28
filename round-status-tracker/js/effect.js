@@ -8,7 +8,7 @@ export default class Effect {
         return [
             new Effect('Bless', this.minutesAsRounds(1)),
             new Effect('Blink', this.minutesAsRounds(1)),
-            new Effect('Cat`s Grace', this.minutesAsRounds(1)),
+            new Effect('Cat\'s Grace', this.minutesAsRounds(1)),
             new Effect('Charm Person', this.minutesAsRounds(60)),
             new Effect('Dominate Person', this.minutesAsRounds(1)),
             new Effect('Effect', this.minutesAsRounds(1)),

@@ -11,6 +11,7 @@ export default class CreatureStateService {
     async populateTaleSpireCreaturesAsync() {
         const taleSpireQueue = await this.taleSpireService.initiative.getQueue();
         let trackedCreatures = this.mapOnlyCreatures(taleSpireQueue.items);
+        this.activeCreatureIndex = taleSpireQueue.activeItemIndex;
 
         this.trackedCreatures = trackedCreatures;
     }
@@ -44,11 +45,17 @@ export default class CreatureStateService {
 
         if (turnHasIncremented) {
             const lastTurnCreature = this.trackedCreatures[this.activeCreatureIndex];
-            lastTurnCreature.incrementRound();
+            if (lastTurnCreature !== null && lastTurnCreature !== undefined) {
+                lastTurnCreature.incrementRound();
+            }
+
         }
         else {
             const currentTurnCreature = this.trackedCreatures[actualCreatureIndex];
-            currentTurnCreature.decrementRound();
+            if (currentTurnCreature !== null && currentTurnCreature !== undefined) {
+                currentTurnCreature.decrementRound();
+            }
+
         }
 
         this.activeCreatureIndex = actualCreatureIndex;
@@ -82,7 +89,7 @@ export default class CreatureStateService {
 
     buildTrackedCreaturesHtml() {
         const nameTemplate = `
-        <div class="creature mt-1 mb-1">
+        <div class="creature">
             <h3 class='d-flex align-center'>
                 name
             </h3>
@@ -91,7 +98,7 @@ export default class CreatureStateService {
         </div>
         `;
         const effectTemplate = `
-        <div class='effect mt-1 mb-1'>
+        <div class='effect'>
             <i class="ts-icon-character-arrow-up effect-icon-standalone icon-standalone ts-icon-small"></i>
             <h4 class='d-flex align-center'>name</h4>
             <button class='ml-auto' id='trigger-override-effect-increment' data-effect='name' data-index='creatureIndex'>
@@ -107,7 +114,7 @@ export default class CreatureStateService {
         </div>
         `;
         const conditionTemplate = `
-        <div class='condition mt-1 mb-1'>
+        <div class='condition'>
             <i class="ts-icon-character-confused condition-icon-standalone icon-standalone ts-icon-small"></i>
             <h5 class='d-flex align-center'>name</h5>
             <button class='ml-auto' id='trigger-condition-removal' data-condition='name' data-index='creatureIndex'>
@@ -118,10 +125,10 @@ export default class CreatureStateService {
 
         let trackedCreaturesHtml = '';
         this.trackedCreatures.forEach((tc, i) => {
-            let trackedCreatureHtml = `<div class='creature-row'>`
+            let trackedCreatureHtml = `<div class='tracked-creature'>`
 
             if (i == this.activeCreatureIndex) {
-                trackedCreatureHtml = trackedCreatureHtml.replace('creature-row', 'creature-row active')
+                trackedCreatureHtml = trackedCreatureHtml.replace('tracked-creature', 'tracked-creature active')
             }
 
             trackedCreatureHtml += nameTemplate.replace('name', tc.name)

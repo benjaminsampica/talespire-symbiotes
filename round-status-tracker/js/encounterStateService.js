@@ -93,7 +93,7 @@ document.addEventListener("click", function (e) {
 
     if (target) {
         let condition = target.dataset.condition;
-        let index = target.dataset.creatureIndex;
+        let index = target.dataset.index;
         creatureStateService.removeCondition(index, condition)
     }
 });
@@ -113,7 +113,6 @@ async function startTrackingAsync() {
 }
 
 function handleInitiativeEvents(queue) {
-    // TODO: Bug when adding/removing creatures that is decrementing the round counter.
     creatureStateService.remapCreatures(queue.payload.items);
 
     const [isNewRound, isRoundIncrementing] = calculateNewRoundStatus(creatureStateService.activeCreatureIndex, queue.payload.activeItemIndex);
@@ -132,7 +131,9 @@ function calculateNewRoundStatus(activeCreatureIndex, actualCreatureIndex) {
     // 2. Creature 0 is still taking their turn but Creature 9 forgot to do something and the turn moves back (new round).
     // NOTE: There is a limitation for only _two_ creatures. There isn't enough data available from TaleSpire to determine if the turn went backwards or went to a new round.
 
-    const isNewRound = activeCreatureIndex - 1 !== actualCreatureIndex && activeCreatureIndex + 1 !== actualCreatureIndex;
+    const isNewRound = activeCreatureIndex - 1 !== actualCreatureIndex
+        && activeCreatureIndex + 1 !== actualCreatureIndex
+        && activeCreatureIndex !== actualCreatureIndex;
     const isRoundIncrementing = actualCreatureIndex < activeCreatureIndex;
 
     return [isNewRound, isRoundIncrementing];

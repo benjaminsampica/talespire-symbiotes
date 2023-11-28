@@ -45,6 +45,10 @@ button:focus-visible {
     background-color: var(--ts-button-hover);
 }
 
+vuplex-dropdown-container {
+    position: initial !important;
+}
+
 .w-100 {
     width: 100%;
 }
@@ -74,10 +78,12 @@ button:focus-visible {
 }
 
 .creature,
-.buff,
+.effect,
 .condition {
     display: flex;
     gap: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .ml-auto {
@@ -85,21 +91,21 @@ button:focus-visible {
 }
 
 .condition-icon {
-    background-color: var(--ts-color-danger);
+    background-color: rgb(223, 138, 40);
     border-radius: 5px;
 }
 
 .condition-icon-standalone {
-    filter: invert(28%) sepia(100%) hue-rotate(315deg) saturate(10);
+    filter: invert(28%) sepia(100%) hue-rotate(318deg) saturate(10);
 }
 
-.buff-icon-button {
+.effect-icon-button {
     background-color: rgb(126, 51, 211);
     border-radius: 5px;
 }
 
-.buff-icon-standalone {
-    filter: invert(28%) sepia(100%) hue-rotate(71deg) saturate(3);
+.effect-icon-standalone {
+    filter: invert(28%) sepia(100%) hue-rotate(276deg) saturate(3);
 }
 
 .icon-standalone {
