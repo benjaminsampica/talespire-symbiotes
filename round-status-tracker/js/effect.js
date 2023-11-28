@@ -6,27 +6,29 @@ export default class Effect {
 
     static list() {
         return [
-            new Effect('Cat`s Grace', this.minutesToRounds(1)),
-            new Effect('Bless', this.minutesToRounds(1)),
-            new Effect('Blink', this.minutesToRounds(1)),
-            new Effect('Effect', this.minutesToRounds(1)),
-            new Effect('Enlarge/Reduce', this.minutesToRounds(1)),
-            new Effect('Expeditious Retreat', this.minutesToRounds(10)),
-            new Effect('Guidance', this.minutesToRounds(1)),
-            new Effect('Haste', this.minutesToRounds(1)),
-            new Effect('Heroism', this.minutesToRounds(1)),
-            new Effect('Faerie Fire', this.minutesToRounds(1)),
-            new Effect('Feather Fall', this.minutesToRounds(1)),
-            new Effect('Fly', this.minutesToRounds(10)),
-            new Effect('Invisibility', this.minutesToRounds(60)),
-            new Effect('Jump', this.minutesToRounds(1)),
-            new Effect('Mirror Image', this.minutesToRounds(1)),
-            new Effect('Longstrider', this.minutesToRounds(60)),
-            new Effect('See Invisibility', this.minutesToRounds(60))
+            new Effect('Bless', this.minutesAsRounds(1)),
+            new Effect('Blink', this.minutesAsRounds(1)),
+            new Effect('Cat`s Grace', this.minutesAsRounds(1)),
+            new Effect('Charm Person', this.minutesAsRounds(60)),
+            new Effect('Dominate Person', this.minutesAsRounds(1)),
+            new Effect('Effect', this.minutesAsRounds(1)),
+            new Effect('Enlarge/Reduce', this.minutesAsRounds(1)),
+            new Effect('Expeditious Retreat', this.minutesAsRounds(10)),
+            new Effect('Guidance', this.minutesAsRounds(1)),
+            new Effect('Haste', this.minutesAsRounds(1)),
+            new Effect('Heroism', this.minutesAsRounds(1)),
+            new Effect('Faerie Fire', this.minutesAsRounds(1)),
+            new Effect('Feather Fall', this.minutesAsRounds(1)),
+            new Effect('Fly', this.minutesAsRounds(10)),
+            new Effect('Invisibility', this.minutesAsRounds(60)),
+            new Effect('Jump', this.minutesAsRounds(1)),
+            new Effect('Mirror Image', this.minutesAsRounds(1)),
+            new Effect('Longstrider', this.minutesAsRounds(60)),
+            new Effect('See Invisibility', this.minutesAsRounds(60))
         ]
     }
 
-    static minutesToRounds(minutes) {
+    static minutesAsRounds(minutes) {
         return minutes * 10;
     }
 }

@@ -70,12 +70,13 @@ button:focus-visible {
     display: flex;
 }
 
-.align-center
-{
+.align-center {
     align-items: center;
 }
 
-.creature, .buff, .condition {
+.creature,
+.buff,
+.condition {
     display: flex;
     gap: 5px;
 }
@@ -89,18 +90,16 @@ button:focus-visible {
     border-radius: 5px;
 }
 
-.condition-icon-standalone
-{
+.condition-icon-standalone {
     filter: invert(28%) sepia(100%) hue-rotate(315deg) saturate(10);
 }
 
 .buff-icon-button {
-    background-color: rgb(34, 187, 51);
+    background-color: rgb(34, 164, 187);
     border-radius: 5px;
 }
 
-.buff-icon-standalone
-{
+.buff-icon-standalone {
     filter: invert(28%) sepia(100%) hue-rotate(71deg) saturate(3);
 }
 
