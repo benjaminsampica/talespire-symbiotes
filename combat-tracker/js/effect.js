@@ -11,7 +11,6 @@ export default class Effect {
             new Effect('Cats Grace', this.minutesAsRounds(1)),
             new Effect('Charm Person', this.minutesAsRounds(60)),
             new Effect('Dominate Person', this.minutesAsRounds(1)),
-            new Effect('Effect', this.minutesAsRounds(1)),
             new Effect('Enlarge/Reduce', this.minutesAsRounds(1)),
             new Effect('Expeditious Retreat', this.minutesAsRounds(10)),
             new Effect('Guidance', this.minutesAsRounds(1)),
