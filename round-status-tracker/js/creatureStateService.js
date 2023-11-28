@@ -7,7 +7,7 @@ export default class CreatureStateService {
         this.onCreatureChangedCallback = onCreatureChangedCallback;
     }
 
-    async populateTalespireCreaturesAsync() {
+    async populateTaleSpireCreaturesAsync() {
         const taleSpireQueue = await TS.initiative.getQueue();
         this.trackedCreatures = this.mapOnlyCreatures(taleSpireQueue.items);
     }

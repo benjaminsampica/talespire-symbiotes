@@ -100,7 +100,7 @@ document.addEventListener("click", function (e) {
 
 async function startTrackingAsync() {
     round = 0;
-    await creatureStateService.populateTalespireCreaturesAsync();
+    await creatureStateService.populateTaleSpireCreaturesAsync();
 
     if (creatureStateService.trackedCreatures.length <= 2) {
         InvalidStateService.setInvalidState("There must be 3 or more creatures in the initiative queue to start tracking.");
