@@ -43,6 +43,17 @@ test('missing creatures are removed', () => {
     expect(sut.trackedCreatures).toEqual([]);
 });
 
+test('when any turn happens, the success callback is invoked.', () => {
+    const creature0 = new TrackedCreature(1, 'Test');
+    creature0.addBuff('Heroism');
+
+    let sut = new CreatureStateService(fakeSuccessCallback, [creature0]);
+
+    sut.updateTurnForCreatures(0);
+
+    expect(successCallbackResult).toEqual(true);
+});
+
 test('when a turn increments from creature 0 to 1, then creature 0 buff durations go down by 1', () => {
     const creature0 = new TrackedCreature(1, 'Test');
     creature0.addBuff('Heroism');
@@ -50,7 +61,7 @@ test('when a turn increments from creature 0 to 1, then creature 0 buff duration
     const creature1 = new TrackedCreature(1, 'Test');
     creature1.addBuff('Heroism');
 
-    let sut = new CreatureStateService(null, [creature0, creature1]);
+    let sut = new CreatureStateService(fakeSuccessCallback, [creature0, creature1]);
 
     sut.updateTurnForCreatures(1);
 
@@ -64,7 +75,7 @@ test('when a turn decrements from creature 1 to 0, then creature 0 buff duration
     const creature1 = new TrackedCreature(1, 'Test');
     creature1.addBuff('Heroism');
 
-    let sut = new CreatureStateService(null, [creature0, creature1]);
+    let sut = new CreatureStateService(fakeSuccessCallback, [creature0, creature1]);
 
     sut.updateTurnForCreatures(1);
 
@@ -84,7 +95,7 @@ test('when a turn increments from creature 0 to 1 to 2 to 0 then decrements to 2
 
     const creature2 = new TrackedCreature(1, 'Test');
     creature2.addBuff('Heroism');
-    let sut = new CreatureStateService(null, [creature0, creature1, creature2]);
+    let sut = new CreatureStateService(fakeSuccessCallback, [creature0, creature1, creature2]);
 
     sut.updateTurnForCreatures(1);
     sut.updateTurnForCreatures(2);

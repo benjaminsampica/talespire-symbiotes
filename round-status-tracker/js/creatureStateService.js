@@ -49,6 +49,8 @@ export default class CreatureStateService {
         }
 
         this.activeCreatureIndex = actualCreatureIndex;
+
+        this.onCreatureChangedCallback();
     }
 
     overrideIncrementBuff(creatureIndex, buffIndex) {

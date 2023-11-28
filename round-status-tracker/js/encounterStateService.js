@@ -8,90 +8,90 @@ let addBuffForm;
 let addConditionForm;
 const creatureStateService = new CreatureStateService(refreshTrackedCreaturesDOM);
 
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
     const target = e.target.closest("#trigger-condition-form");
-  
-    if(target) {
+
+    if (target) {
         const creatureIndex = target.value;
         addConditionForm = new AddConditionForm(creatureStateService.trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM);
     }
 });
 
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
     const target = e.target.closest("#submit-condition-form");
-  
-    if(target){
+
+    if (target) {
         addConditionForm.submit();
     }
 });
 
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
     const target = e.target.closest("#cancel-condition-form");
-  
-    if(target){
+
+    if (target) {
         addConditionForm.cancel();
     }
 });
 
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
     const target = e.target.closest("#trigger-buff-form");
-  
-    if(target) {
+
+    if (target) {
         const creatureIndex = target.value;
         addBuffForm = new AddBuffForm(creatureStateService.trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM);
     }
 });
 
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
     const target = e.target.closest("#submit-buff-form");
-  
-    if(target){
+
+    if (target) {
         addBuffForm.submit();
     }
 });
 
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
     const target = e.target.closest("#cancel-buff-form");
-  
-    if(target){
+
+    if (target) {
         addBuffForm.cancel();
     }
 });
 
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
     const target = e.target.closest("#trigger-override-buff-increment");
-  
-    if(target){
+
+    if (target) {
         let buff = target.dataset.buff;
         let index = target.dataset.index;
         creatureStateService.overrideIncrementBuff(index, buff)
     }
 });
 
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
     const target = e.target.closest("#trigger-override-buff-decrement");
-  
-    if(target) {
+
+    if (target) {
         let buff = target.dataset.buff;
         let index = target.dataset.index;
         creatureStateService.overrideDecrementBuff(index, buff)
     }
 });
 
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
     const target = e.target.closest("#trigger-buff-removal");
-  
-    if(target) {
+
+    if (target) {
         let buff = target.dataset.buff;
         let index = target.dataset.index;
         creatureStateService.removeBuff(index, buff)
     }
 });
 
-document.addEventListener("click", function(e) {
+document.addEventListener("click", function (e) {
     const target = e.target.closest("#trigger-condition-removal");
-  
-    if(target) {
+
+    if (target) {
         let condition = target.dataset.condition;
         let index = target.dataset.creatureIndex;
         creatureStateService.removeCondition(index, condition)
@@ -122,7 +122,6 @@ function handleInitiativeEvents(queue) {
     }
 
     creatureStateService.updateTurnForCreatures(queue.payload.activeItemIndex, isNewRound);
-    refreshTrackedCreaturesDOM();
 }
 
 function calculateNewRoundStatus(activeCreatureIndex, actualCreatureIndex) {
@@ -144,8 +143,7 @@ function refreshTrackedCreaturesDOM() {
 }
 
 function triggerNewRound(isIncrementing) {
-    if(isIncrementing)
-    {
+    if (isIncrementing) {
         round++;
     }
     else {
@@ -156,7 +154,7 @@ function triggerNewRound(isIncrementing) {
 }
 
 export default {
-    calculateNewRoundStatus, 
-    startTrackingAsync, 
+    calculateNewRoundStatus,
+    startTrackingAsync,
     handleInitiativeEvents
 };
