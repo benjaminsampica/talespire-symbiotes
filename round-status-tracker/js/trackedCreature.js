@@ -2,10 +2,9 @@ import Effect from "./effect.js";
 import Condition from "./condition.js";
 
 export default class TrackedCreature {
-    constructor(id, name, avatarUrl = null) {
+    constructor(id, name) {
         this.id = id;
         this.name = name;
-        this.avatarUrl = avatarUrl;
         this.effects = [];
         this.conditions = [];
     }

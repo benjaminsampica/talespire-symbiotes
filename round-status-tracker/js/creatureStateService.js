@@ -11,15 +11,12 @@ export default class CreatureStateService {
     async populateTaleSpireCreaturesAsync() {
         const taleSpireQueue = await this.taleSpireService.initiative.getQueue();
         let trackedCreatures = this.mapOnlyCreatures(taleSpireQueue.items);
-        this.enrichWithCreatureInfo(trackedCreatures);
 
         this.trackedCreatures = trackedCreatures;
     }
 
     remapCreatures(items) {
         let actualTrackedCreatures = this.mapOnlyCreatures(items);
-
-        this.enrichWithCreatureInfo(actualTrackedCreatures);
 
         this.trackedCreatures = actualTrackedCreatures
             .map(atc => {
@@ -38,13 +35,6 @@ export default class CreatureStateService {
         return items
             .filter(entry => entry.kind == "creature") // TaleSpire is planning on including other kinds of entries in the item list so we want to only include creature types.
             .map(entry => new TrackedCreature(entry.id, entry.name));
-    }
-
-    enrichWithCreatureInfo(creatures) {
-        let creatureInfos = this.taleSpireService.creatures.getMoreInfo(creatures.map(i => i.id));
-        creatures.forEach((c, i) => {
-            c.avatarUrl = creatureInfos[i].link;
-        });
     }
 
     updateTurnForCreatures(actualCreatureIndex, isNewRound) {
@@ -94,7 +84,6 @@ export default class CreatureStateService {
         const nameTemplate = `
         <div class="creature mt-1 mb-1">
             <h3 class='d-flex align-center'>
-                <img src='avatarUrl' style="height: 30px; width: 30px;" />
                 name
             </h3>
             <button value="creatureIndex" id='trigger-effect-form' class="effect-icon-button ml-auto"><i class="ts-icon-character-arrow-up ts-icon-small"></i></button>
@@ -136,7 +125,6 @@ export default class CreatureStateService {
             }
 
             trackedCreatureHtml += nameTemplate.replace('name', tc.name)
-                .replace('avatarUrl', tc.avatarUrl)
                 .replace(new RegExp('creatureIndex', 'g'), i);
 
             tc.effects.forEach(b => {
