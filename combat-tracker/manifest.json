@@ -1,8 +1,8 @@
 {
   "manifestVersion": 1,
-  "name": "5E Round & Status Tracker",
-  "entryPoint": "/round-status-tracker.html",
-  "summary": "An opinionated round and status tracker for DM's playing 5E D&D.",
+  "name": "5E Combat Tracker",
+  "entryPoint": "/combat-tracker.html",
+  "summary": "An opinionated combat tracker for DM's playing 5E D&D.",
   "version": "0.0.1",
   "descriptionFilePath": "/README.md",
   "license": "MIT",

@@ -11,7 +11,7 @@ export default class addEffectForm {
 
     initialize() {
         let html = `
-            <h3>Add A Effect</h3>
+            <h3>Add An Effect</h3>
             <select id='selected-effect' class='w-100'>
         `;
 
