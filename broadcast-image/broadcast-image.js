@@ -1,3 +1,5 @@
+let receivedImageChunks = [];
+
 async function onBroadcastImageAsync() {
     document.getElementById("invalid-state").classList.add("d-none");
 
@@ -5,7 +7,14 @@ async function onBroadcastImageAsync() {
     var validationResult = await validateImageAsync(inputUrl);
 
     if (validationResult.isValid) {
-        TS.sync.send(inputUrl, "board");
+        let imageChunks = getImageUrlChunks(inputUrl);
+
+        imageChunks.forEach(async (chunk, index) => {
+            await new Promise(resolve => setTimeout(resolve, 75 * index));  // Sleep to avoid rate limiting.
+
+            TS.sync.send(JSON.stringify(chunk), "board");
+        });
+
     }
     else {
         setInvalidState(validationResult.message);
@@ -13,7 +22,19 @@ async function onBroadcastImageAsync() {
 }
 
 function handleSyncEvents(event) {
-    document.getElementById("broadcasted-image").src = event.payload.str;
+    let imageChunk = JSON.parse(event.payload.str);
+    receivedImageChunks.push(imageChunk);
+
+    document.getElementById("loading").classList.remove("d-none");
+
+    if (imageChunk.isLastChunk) {
+        var imageUrl = receivedImageChunks
+            .filter(ric => ric.id == imageChunk.id)
+            .map(ric => ric.part)
+            .join('');
+        document.getElementById("broadcasted-image").src = imageUrl;
+        document.getElementById("loading").classList.add("d-none");
+    }
 }
 
 async function validateImageAsync(url) {
@@ -24,11 +45,6 @@ async function validateImageAsync(url) {
 
     if (url.length <= 0) {
         validationResult.message = `Please provide a link to an image.`
-        return validationResult;
-    }
-
-    if (url.length > 400) {
-        validationResult.message = `The link must be 400 characters or less. Current link has ${url.length} characters.`;
         return validationResult;
     }
 
@@ -54,10 +70,28 @@ async function loadImageAsync(url) {
     return isImage;
 }
 
+function getImageUrlChunks(url) {
+    const maxLength = 350;
+    const chunkCount = Math.ceil(url.length / maxLength);
+
+    const id = Math.floor((Math.random() * 100_000_000) + 1);;
+    let imageParts = [];
+    for (let i = 0, o = 0; i <= chunkCount - 1; ++i, o += maxLength) {
+        imageParts[i] = {
+            part: url.substr(o, maxLength),
+            id: id,
+            isLastChunk: i == chunkCount - 1
+        }
+    }
+
+    return imageParts;
+}
+
 function reset() {
     document.getElementById("input-image").value = "";
     document.getElementById("broadcasted-image").src = "";
     document.getElementById("invalid-state").classList.add("d-none");
+    document.getElementById("loading").classList.add("d-none");
 }
 
 function setInvalidState(validationMessage) {
