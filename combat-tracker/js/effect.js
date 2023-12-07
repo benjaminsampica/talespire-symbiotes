@@ -30,7 +30,7 @@ export default class Effect {
             new Effect('Longstrider', this.minutesAsRounds(60)),
             new Effect('See Invisibility', this.minutesAsRounds(60)),
             new Effect('Summon Aberration', this.minutesAsRounds(60)),
-            new Effect('Telekinesis', this.minutesAsRounds(10)),
+            new Effect('Telekinesis', this.minutesAsRounds(10))
         ]
     }
 
