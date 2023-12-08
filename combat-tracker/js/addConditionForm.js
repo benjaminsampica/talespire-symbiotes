@@ -9,8 +9,7 @@ export default class addConditionForm {
         this.initialize();
     }
 
-    initialize()
-    {
+    initialize() {
         let html = `
             <h3>Add A Condition</h3>
             <select id='selected-condition' class='w-100'>
@@ -29,24 +28,21 @@ export default class addConditionForm {
         document.getElementById('add-condition-form').innerHTML = html;
     }
 
-    submit()
-    {
+    submit() {
         let name = document.getElementById('selected-condition').value;
-        if(name === null || undefined)
-        {
+        if (name === null || name === undefined) {
             InvalidStateService.setInvalidState("Please choose a condition.");
         }
         else {
             this.creature.addCondition(name);
-        
+
             document.getElementById('add-condition-form').innerHTML = '';
             InvalidStateService.resetInvalidState();
             this.onSubmitFormCallback();
         }
     }
 
-    cancel()
-    {
+    cancel() {
         document.getElementById('add-condition-form').innerHTML = '';
         InvalidStateService.resetInvalidState();
     }

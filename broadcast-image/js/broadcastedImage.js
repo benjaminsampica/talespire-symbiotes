@@ -29,7 +29,7 @@ export default class BroadcastedImage {
             return validationResult;
         }
 
-        const isImage = await this.loadImageAsync();
+        const isImage = await this.isValidImageAsync();
 
         if (!isImage) {
             validationResult.message = `Could not interpret the given link as an image.`
@@ -40,7 +40,7 @@ export default class BroadcastedImage {
         return validationResult;
     }
 
-    async loadImageAsync() {
+    async isValidImageAsync() {
         const image = new Image();
         image.src = this.url;
         const isImage = await new Promise(resolve => {

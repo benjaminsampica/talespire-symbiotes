@@ -4,23 +4,31 @@ export default class ImageHistoryTab {
     }
 
     show() {
-        var element = document.getElementById("image-history-tab");
+        document.getElementById("button-image-history-tab").classList.add("active");
 
-        element.innerHTML = this.buildHtml();
-
-        element.classList.remove("d-none");
+        const tabElement = document.getElementById("image-history-tab");
+        tabElement.innerHTML = this.buildHtml();
+        tabElement.classList.remove("d-none");
     }
 
     hide() {
+        document.getElementById("button-image-history-tab").classList.remove("active");
         document.getElementById("image-history-tab").classList.add("d-none");
     }
 
     buildHtml() {
-        const imageUrls = this.receivedImagesState.getImageUrls();
+        const images = this.receivedImagesState.getUniqueImages();
 
-        let html = '<div>';
-        imageUrls.forEach(url => {
-            html += `<img src="${url}" width=60 height=60 />`;
+        let html = '<div class="row">';
+        images.forEach(img => {
+            html += `
+                <div class="col-6 center">
+                    <img src="${img.url}" class="historical-image" />
+                    <div class="row">
+                        <button id="button-rebroadcast" data-id="${img.id}">Rebroadcast</button>
+                    </div>
+                </div>
+            `
         });
         html += '<div>';
 

@@ -47,6 +47,6 @@ test("given multiple image parts, then rebuilds the image url.", () => {
 
     parts.forEach(p => sut.receiveImagePart(p));
 
-    const expectedUrl = sut.getImageUrls();
-    expect(expectedUrl[0]).toEqual(multiPartImageUrl);
+    const expectedUrl = sut.getUniqueImages();
+    expect(expectedUrl[0].url).toEqual(multiPartImageUrl);
 });

@@ -7,7 +7,8 @@ body {
 }
 
 button,
-input {
+input,
+textarea {
     background-color: var(--ts-background-secondary);
     color: var(--ts-color-primary);
     font-family: 'OptimusPrinceps', sans-serif;
@@ -19,14 +20,9 @@ input {
     transition: ease-in-out 0.1s;
 }
 
-button:hover,
-input:hover {
-    background-color: var(--ts-button-hover);
-    transition: ease-in-out 0.2s;
-}
-
 button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+textarea:focus-visible {
     outline: 3px solid var(--ts-accessibility-focus);
     outline-offset: -1px;
     background-color: var(--ts-button-hover);
@@ -37,18 +33,27 @@ button {
     background-color: var(--ts-button-background);
 }
 
-button:hover {
+button:focus-visible {
     background-color: var(--ts-button-hover);
 }
 
-button:focus-visible {
-    background-color: var(--ts-button-hover);
+.d-none {
+    display: none;
+}
+
+.active {
+    background-color: var(--ts-accent-primary);
+}
+
+.w-100 {
+    width: 100%;
+    min-width: 100%;
 }
 
 .broadcasted-image {
     margin-top: 5px;
 }
 
-.d-none {
-    display: none;
+.historical-image {
+    max-height: 150px;
 }

@@ -155,7 +155,6 @@ function triggerNewRound(isIncrementing) {
 }
 
 export default {
-    calculateNewRoundStatus,
     startTrackingAsync,
     handleInitiativeEvents
 };

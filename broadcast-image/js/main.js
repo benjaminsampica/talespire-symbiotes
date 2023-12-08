@@ -4,7 +4,7 @@ import ReceivedImagesState from './receivedImagesState.js';
 
 const receivedImagesState = new ReceivedImagesState();
 const imageHistoryTab = new ImageHistoryTab(receivedImagesState);
-const broadcastImageTab = new BroadcastImageTab();
+const broadcastImageTab = new BroadcastImageTab(receivedImagesState);
 
 document.querySelector("#button-reset-form").addEventListener("click", function (e) {
     broadcastImageTab.reset();
@@ -14,14 +14,25 @@ document.querySelector("#button-broadcast-image").addEventListener("click", func
     broadcastImageTab.onBroadcastImageAsync();
 });
 
-document.querySelector("#show-broadcast-image-tab").addEventListener("click", function (e) {
+document.querySelector("#button-broadcast-image-tab").addEventListener("click", function (e) {
     broadcastImageTab.show();
     imageHistoryTab.hide();
 });
 
-document.querySelector("#show-image-history-tab").addEventListener("click", function (e) {
+document.querySelector("#button-image-history-tab").addEventListener("click", function (e) {
     imageHistoryTab.show();
     broadcastImageTab.hide();
+});
+
+document.addEventListener("click", function (e) {
+    const target = e.target.closest("#button-rebroadcast");
+
+    if (target) {
+        imageHistoryTab.hide();
+        broadcastImageTab.reset();
+        broadcastImageTab.setImageUrl(target.dataset.id);
+        broadcastImageTab.show();
+    }
 });
 
 window.handleSyncEvents = function handleSyncEvents(event) {

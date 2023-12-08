@@ -1,3 +1,5 @@
+import ReceivedImage from "./receivedImage.js";
+
 export default class ReceivedImagesState {
     constructor() {
         this.receivedImageParts = [];
@@ -14,16 +16,17 @@ export default class ReceivedImagesState {
             .join('');
     }
 
-    getImageUrls() {
-        let imageUrls = [];
+    getUniqueImages() {
+        const receivedImages = [];
         this.receivedImageParts.reduce(
-            (entryMap, ric) => entryMap.set(ric.id, [...entryMap.get(ric.id) || [], ric]),
+            (entryMap, rip) => entryMap.set(rip.id, [...entryMap.get(rip.id) || [], rip]),
             new Map()
         ).forEach(gb => {
-            let imageUrl = this.buildImageUrlFromParts(gb[0].id);
-            imageUrls.push(imageUrl);
+            const id = gb[0].id;
+            const imageUrl = this.buildImageUrlFromParts(id);
+            receivedImages.push(new ReceivedImage(id, imageUrl));
         });
 
-        return imageUrls;
+        return receivedImages;
     }
 }

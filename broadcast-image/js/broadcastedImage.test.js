@@ -20,7 +20,7 @@ test("when url length is empty, then is not valid", async () => {
 test("when image is not a valid image, then is not valid", async () => {
     const sut = new BroadcastedImage(multiPartImageUrl);
 
-    jest.spyOn(sut, 'loadImageAsync')
+    jest.spyOn(sut, 'isValidImageAsync')
         .mockImplementation(() => false);
 
     var result = await sut.validateAsync();
@@ -31,7 +31,7 @@ test("when image is not a valid image, then is not valid", async () => {
 test("when image is a valid image, then is valid", async () => {
     const sut = new BroadcastedImage(multiPartImageUrl);
 
-    jest.spyOn(sut, 'loadImageAsync')
+    jest.spyOn(sut, 'isValidImageAsync')
         .mockImplementation(() => true);
 
     var result = await sut.validateAsync();

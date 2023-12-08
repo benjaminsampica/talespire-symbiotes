@@ -1,6 +1,10 @@
 import BroadcastedImage from './broadcastedImage.js';
 
 export default class BroadcastImageTab {
+    constructor(receivedImagesState) {
+        this.receivedImagesState = receivedImagesState;
+    }
+
     async onBroadcastImageAsync() {
         document.getElementById("invalid-state").classList.add("d-none");
 
@@ -21,11 +25,19 @@ export default class BroadcastImageTab {
         }
     }
 
+    setImageUrl(broadcastedImageId) {
+        const url = this.receivedImagesState.buildImageUrlFromParts(broadcastedImageId);
+
+        document.getElementById("input-image").value = url;
+    }
+
     show() {
+        document.getElementById("button-broadcast-image-tab").classList.add("active");
         document.getElementById("broadcast-image-tab").classList.remove("d-none");
     }
 
     hide() {
+        document.getElementById("button-broadcast-image-tab").classList.remove("active");
         document.getElementById("broadcast-image-tab").classList.add("d-none");
     }
 

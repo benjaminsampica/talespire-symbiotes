@@ -30,7 +30,7 @@ export default class addEffectForm {
 
     submit() {
         let name = document.getElementById('selected-effect').value;
-        if (name === null || undefined) {
+        if (name === null || name === undefined) {
             InvalidStateService.setInvalidState("Please choose an effect.");
         }
         else {
