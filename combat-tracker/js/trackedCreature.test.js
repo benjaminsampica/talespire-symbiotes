@@ -94,3 +94,19 @@ test('effects can be removed', () => {
     expect(sut.effects).toHaveLength(0);
 });
 
+test('given not concentrating, when toggling concentrating, then now concentrating', () => {
+    let sut = new TrackedCreature(1, 'Test');
+
+    sut.toggleConcentrating();
+
+    expect(sut.concentrating).toBe(true);
+});
+
+test('given concentrating, when toggling concentrating, then no longer concentrating', () => {
+    let sut = new TrackedCreature(1, 'Test');
+    sut.concentrating = true;
+    
+    sut.toggleConcentrating();
+
+    expect(sut.concentrating).toBe(false);
+});

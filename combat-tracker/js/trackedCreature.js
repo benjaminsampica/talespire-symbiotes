@@ -7,6 +7,7 @@ export default class TrackedCreature {
         this.name = name;
         this.effects = [];
         this.conditions = [];
+        this.concentrating = false;
     }
 
     incrementRound() {
@@ -48,4 +49,8 @@ export default class TrackedCreature {
     overrideDecrementEffect(name) {
         this.effects.find(b => b.name == name).roundDuration--;
     }
+
+    toggleConcentrating() { 
+        this.concentrating = !this.concentrating;
+    };
 }

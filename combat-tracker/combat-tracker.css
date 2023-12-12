@@ -121,3 +121,11 @@ vuplex-dropdown-container {
     padding-left: 5px;
     padding-right: 5px;
 }
+
+.concentration-icon {
+    background-image: url('./concentration.svg');
+}
+
+.concentration-icon.active {
+    color: var(--ts-accent-primary);
+}

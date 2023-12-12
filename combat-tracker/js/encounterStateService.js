@@ -98,6 +98,15 @@ document.addEventListener("click", function (e) {
     }
 });
 
+document.addEventListener("click", function (e) {
+    const target = e.target.closest("#button-toggle-concentration");
+
+    if (target) {
+        let index = target.dataset.index;
+        creatureStateService.removeCondition(index, condition)
+    }
+});
+
 async function startTrackingAsync() {
     round = 0;
     await creatureStateService.populateTaleSpireCreaturesAsync();
@@ -156,5 +165,6 @@ function triggerNewRound(isIncrementing) {
 
 export default {
     startTrackingAsync,
-    handleInitiativeEvents
+    handleInitiativeEvents,
+    calculateNewRoundStatus
 };

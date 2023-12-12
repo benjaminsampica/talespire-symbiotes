@@ -87,11 +87,19 @@ export default class CreatureStateService {
         this.onCreatureChangedCallback();
     }
 
+    toggleConcentration(creatureIndex)
+    {
+        this.trackedCreatures[creatureIndex].toggleConcentration();
+
+        this.onCreatureChangedCallback();
+    }
+
     buildTrackedCreaturesHtml() {
         const nameTemplate = `
         <div class="creature">
             <h3 class='d-flex align-center'>
                 name
+                <i class='concentration-icon' data-index='creatureIndex' id='button-toggle-concentration'/>
             </h3>
             <button value="creatureIndex" id='trigger-effect-form' class="effect-icon-button ml-auto"><i class="ts-icon-character-arrow-up ts-icon-small"></i></button>
             <button value="creatureIndex" id='trigger-condition-form' class="condition-icon"><i class="ts-icon-character-confused ts-icon-small"></i></button>
