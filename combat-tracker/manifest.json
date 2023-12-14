@@ -20,6 +20,9 @@
     "subscriptions": {
       "initiative": {
         "onInitiativeEvent": "handleInitiativeEvents"
+      },
+      "symbiote": {
+        "onStateChangeEvent": "onStateChangeEventAsync"
       }
     }
   },

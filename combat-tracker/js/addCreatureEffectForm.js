@@ -1,7 +1,7 @@
 import Effect from './effect.js';
 import InvalidStateService from './invalidStateService.js';
 
-export default class addEffectForm {
+export default class addCreatureEffectForm {
     constructor(creature, onSubmitFormCallback) {
         this.onSubmitFormCallback = onSubmitFormCallback;
         this.creature = creature;
@@ -11,12 +11,12 @@ export default class addEffectForm {
 
     initialize() {
         let html = `
-            <h3>Add An Effect</h3>
+            <h3>Add A Creature Effect</h3>
             <select id='selected-effect' class='w-100'>
         `;
 
         Effect.list().forEach(b => {
-            html += `<option>${b.name}</option>`
+            html += `<option value='${b.name}'>${b.name} (${b.roundDuration})</option>`
         });
 
         html += `
@@ -25,7 +25,7 @@ export default class addEffectForm {
             <button id='cancel-effect-form' class='mt-1'>Cancel</button>
         `
 
-        document.getElementById('add-effect-form').innerHTML = html;
+        document.getElementById('form').innerHTML = html;
     }
 
     submit() {
@@ -36,14 +36,14 @@ export default class addEffectForm {
         else {
             this.creature.addEffect(name);
 
-            document.getElementById('add-effect-form').innerHTML = '';
+            document.getElementById('form').innerHTML = '';
             InvalidStateService.resetInvalidState();
             this.onSubmitFormCallback();
         }
     }
 
     cancel() {
-        document.getElementById('add-effect-form').innerHTML = '';
+        document.getElementById('form').innerHTML = '';
         InvalidStateService.resetInvalidState();
     }
 }

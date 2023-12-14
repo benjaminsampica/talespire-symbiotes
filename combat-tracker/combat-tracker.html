@@ -12,19 +12,19 @@
 
 <body>
     <h1 class="d-flex" style="justify-content: center;"><i class="ts-icon-d20"></i>5e Combat Tracker</h1>
+    <button onclick="startTrackingAsync()">Start Tracking</button>
+    <button id="button-add-custom-condition">Add Custom Condition</button>
     <div id="invalid-state" class="d-none">
         <h3 style="display: flex; align-items: center; margin-top: 0px; gap: 5px;">
             <i class="ts-icon-warning"></i>
             <p id="invalid-state-message"></p>
         </h3>
     </div>
-    <button onclick="startTrackingAsync()" style="margin-bottom:5px;">Start Tracking</button>
     <hr />
     <h2>Round <span id="round-count"></span></h2>
     <div class="tracked-creatures" id="tracked-creatures-list"></div>
     <hr />
-    <div id="add-effect-form"></div>
-    <div id="add-condition-form"></div>
+    <div id="form"></div>
 </body>
 
 </html>

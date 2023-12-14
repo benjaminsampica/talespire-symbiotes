@@ -4,7 +4,16 @@ export default class Effect {
         this.roundDuration = roundDuration;
     }
 
-    static list() {
+    static customEffects = [];
+
+    static addCustomEffect(name, roundDuration) {
+        let effect = new Effect(name, roundDuration);
+        this.customEffects.push(effect);
+
+        return effect;
+    }
+
+    static baseEffects() {
         return [
             new Effect('Banishment', this.minutesAsRounds(1)),
             new Effect('Bless', this.minutesAsRounds(1)),
@@ -32,6 +41,11 @@ export default class Effect {
             new Effect('Summon Aberration', this.minutesAsRounds(60)),
             new Effect('Telekinesis', this.minutesAsRounds(10))
         ]
+    }
+
+    static list() {
+        const newObjectCustomEffects = this.customEffects.map(ce => Object.assign({}, ce));
+        return this.baseEffects().concat(newObjectCustomEffects).sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
     }
 
     static minutesAsRounds(minutes) {

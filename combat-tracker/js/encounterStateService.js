@@ -1,11 +1,11 @@
 import CreatureStateService from './creatureStateService.js';
 import InvalidStateService from './invalidStateService.js';
-import AddConditionForm from './addConditionForm.js';
-import AddEffectForm from './addEffectForm.js';
+import AddCreatureConditionForm from './addCreatureConditionForm.js';
+import AddCreatureEffectForm from './addCreatureEffectForm.js';
 
 let round;
-let addEffectForm;
-let addConditionForm;
+let addCreatureEffectForm;
+let addCreatureConditionForm;
 const creatureStateService = new CreatureStateService(refreshTrackedCreaturesDOM, [], 0, window.TS);
 
 document.addEventListener("click", function (e) {
@@ -13,7 +13,7 @@ document.addEventListener("click", function (e) {
 
     if (target) {
         const creatureIndex = target.value;
-        addConditionForm = new AddConditionForm(creatureStateService.trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM);
+        addCreatureConditionForm = new AddCreatureConditionForm(creatureStateService.trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM);
     }
 });
 
@@ -21,7 +21,7 @@ document.addEventListener("click", function (e) {
     const target = e.target.closest("#submit-condition-form");
 
     if (target) {
-        addConditionForm.submit();
+        addCreatureConditionForm.submit();
     }
 });
 
@@ -29,7 +29,7 @@ document.addEventListener("click", function (e) {
     const target = e.target.closest("#cancel-condition-form");
 
     if (target) {
-        addConditionForm.cancel();
+        addCreatureConditionForm.cancel();
     }
 });
 
@@ -38,7 +38,7 @@ document.addEventListener("click", function (e) {
 
     if (target) {
         const creatureIndex = target.value;
-        addEffectForm = new AddEffectForm(creatureStateService.trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM);
+        addCreatureEffectForm = new AddCreatureEffectForm(creatureStateService.trackedCreatures[creatureIndex], refreshTrackedCreaturesDOM);
     }
 });
 
@@ -46,7 +46,7 @@ document.addEventListener("click", function (e) {
     const target = e.target.closest("#submit-effect-form");
 
     if (target) {
-        addEffectForm.submit();
+        addCreatureEffectForm.submit();
     }
 });
 
@@ -54,7 +54,7 @@ document.addEventListener("click", function (e) {
     const target = e.target.closest("#cancel-effect-form");
 
     if (target) {
-        addEffectForm.cancel();
+        addCreatureEffectForm.cancel();
     }
 });
 

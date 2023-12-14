@@ -1,7 +1,7 @@
 import Condition from './condition.js';
 import InvalidStateService from './invalidStateService.js';
 
-export default class addConditionForm {
+export default class addCreatureConditionForm {
     constructor(creature, onSubmitFormCallback) {
         this.onSubmitFormCallback = onSubmitFormCallback;
         this.creature = creature;
@@ -11,7 +11,7 @@ export default class addConditionForm {
 
     initialize() {
         let html = `
-            <h3>Add A Condition</h3>
+            <h3>Add A Creature Condition</h3>
             <select id='selected-condition' class='w-100'>
         `;
 
@@ -25,7 +25,7 @@ export default class addConditionForm {
             <button id='cancel-condition-form' class='mt-1'>Cancel</button>
         `
 
-        document.getElementById('add-condition-form').innerHTML = html;
+        document.getElementById('form').innerHTML = html;
     }
 
     submit() {
@@ -36,14 +36,14 @@ export default class addConditionForm {
         else {
             this.creature.addCondition(name);
 
-            document.getElementById('add-condition-form').innerHTML = '';
+            document.getElementById('form').innerHTML = '';
             InvalidStateService.resetInvalidState();
             this.onSubmitFormCallback();
         }
     }
 
     cancel() {
-        document.getElementById('add-condition-form').innerHTML = '';
+        document.getElementById('form').innerHTML = '';
         InvalidStateService.resetInvalidState();
     }
 }
