@@ -103,7 +103,7 @@ document.addEventListener("click", function (e) {
 
     if (target) {
         let index = target.dataset.index;
-        creatureStateService.removeCondition(index, condition)
+        creatureStateService.toggleConcentration(index);
     }
 });
 

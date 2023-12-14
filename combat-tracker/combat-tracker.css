@@ -11,11 +11,9 @@ input,
 select {
     background-color: var(--ts-background-secondary);
     color: var(--ts-color-primary);
-
     border: 1px solid var(--ts-accessibility-border);
     border-radius: 4px;
     font-size: 1.2em;
-
     transition: ease-in-out 0.1s;
 }
 
@@ -77,55 +75,84 @@ vuplex-dropdown-container {
     align-items: center;
 }
 
+.ml-auto {
+    margin-left: auto;
+}
+
+.tracked-creatures {
+    display: flex;
+    row-gap: 10px;
+    flex-wrap: wrap;
+}
+
+.tracked-creature {
+    flex: 1 1 auto;
+    width: 100%;
+    flex-wrap: wrap;
+    row-gap: 5px;
+    display: flex;
+}
+
+.tracked-creature.active {
+    border-color: var(--ts-accent-primary);
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    padding: 5px;
+}
+
 .creature,
 .effect,
 .condition {
     display: flex;
     gap: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin: 0px;
+    width: 100%;
 }
 
-.ml-auto {
-    margin-left: auto;
-}
-
-.condition-icon {
+.bg-condition {
     background-color: rgb(223, 138, 40);
-    border-radius: 5px;
 }
 
-.condition-icon-standalone {
-    filter: invert(28%) sepia(100%) hue-rotate(318deg) saturate(10);
+.condition-icon::before {
+    background-image: url('condition.png');
 }
 
-.effect-icon-button {
+.icon {
+    position: relative;
+    display: flex;
+}
+
+.icon::before {
+    content: "";
+}
+
+.bg-effect {
     background-color: rgb(126, 51, 211);
-    border-radius: 5px;
 }
 
-.effect-icon-standalone {
-    filter: invert(28%) sepia(100%) hue-rotate(276deg) saturate(3);
+.icon-effect::before {
+    background-image: url('effect.png');
+}
+
+.icon-concentration::before {
+    background-image: url('concentration.png');
+}
+
+.icon-concentration.active {
+    background-color: var(--ts-accent-primary);
 }
 
 .icon-standalone {
-    display: flex;
-    align-self: center;
-}
-
-.active {
-    border-color: var(--ts-accent-primary);
     border-radius: 5px;
-    border-style: solid;
-    border-width: 2px;
-    padding-left: 5px;
-    padding-right: 5px;
 }
 
-.concentration-icon {
-    background-image: url('./concentration.svg');
+.button-concentration {
+    background-color: transparent;
+    border-color: var(--ts-color-primary);
 }
 
-.concentration-icon.active {
-    color: var(--ts-accent-primary);
+.button-concentration.active {
+    background-color: var(--ts-background-primary);
+    border-color: var(--ts-accent-primary);
 }

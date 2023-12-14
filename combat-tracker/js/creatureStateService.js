@@ -87,8 +87,7 @@ export default class CreatureStateService {
         this.onCreatureChangedCallback();
     }
 
-    toggleConcentration(creatureIndex)
-    {
+    toggleConcentration(creatureIndex) {
         this.trackedCreatures[creatureIndex].toggleConcentration();
 
         this.onCreatureChangedCallback();
@@ -96,39 +95,43 @@ export default class CreatureStateService {
 
     buildTrackedCreaturesHtml() {
         const nameTemplate = `
-        <div class="creature">
-            <h3 class='d-flex align-center'>
-                name
-                <i class='concentration-icon' data-index='creatureIndex' id='button-toggle-concentration'/>
-            </h3>
-            <button value="creatureIndex" id='trigger-effect-form' class="effect-icon-button ml-auto"><i class="ts-icon-character-arrow-up ts-icon-small"></i></button>
-            <button value="creatureIndex" id='trigger-condition-form' class="condition-icon"><i class="ts-icon-character-confused ts-icon-small"></i></button>
-        </div>
+        <h3 class="creature d-flex align-center">
+            name
+            <button class='button-concentration' id='button-toggle-concentration' data-index='creatureIndex'>
+                <i class='icon icon-concentration ts-icon-small'></i>
+            </button>
+            <button value="creatureIndex" id='trigger-effect-form' class="ml-auto bg-effect">
+                <i class="icon icon-effect ts-icon-small"></i>
+            </button>
+            <button value="creatureIndex" id='trigger-condition-form' class="icon bg-condition">
+                <i class="icon condition-icon ts-icon-small"></i>
+            </button>
+        </h3>
         `;
         const effectTemplate = `
-        <div class='effect'>
-            <i class="ts-icon-character-arrow-up effect-icon-standalone icon-standalone ts-icon-small"></i>
-            <h4 class='d-flex align-center'>name</h4>
+        <h4 class='effect d-flex align-center'>
+            <i class="icon icon-standalone icon-effect bg-effect ts-icon-small"></i>
+            name
             <button class='ml-auto' id='trigger-override-effect-increment' data-effect='name' data-index='creatureIndex'>
-                <i class='ts-icon-plus ts-icon-xsmall'></i>
+                <i class='icon ts-icon-plus ts-icon-small'></i>
             </button>
-            <h3>duration</h3>
+            duration
             <button id='trigger-override-effect-decrement' data-effect='name' data-index='creatureIndex'>
-                <i class='ts-icon-minus ts-icon-xsmall'></i>
+                <i class='icon ts-icon-minus ts-icon-small'></i>
             </button>
             <button id='trigger-effect-removal' data-effect='name' data-index='creatureIndex'>
-                <i class='ts-icon-remove ts-icon-xsmall'></i>
+                <i class='icon ts-icon-remove ts-icon-small'></i>
             </button>
-        </div>
+        </h4>
         `;
         const conditionTemplate = `
-        <div class='condition'>
-            <i class="ts-icon-character-confused condition-icon-standalone icon-standalone ts-icon-small"></i>
-            <h5 class='d-flex align-center'>name</h5>
+        <h4 class='condition d-flex align-center'>
+            <i class="icon icon-standalone condition-icon bg-condition ts-icon-small"></i>
+            name
             <button class='ml-auto' id='trigger-condition-removal' data-condition='name' data-index='creatureIndex'>
-                <i class='ts-icon-remove ts-icon-xsmall'></i>
+                <i class='icon ts-icon-remove ts-icon-small'></i>
             </button>
-        </div>
+        </h4>
         `;
 
         let trackedCreaturesHtml = '';
@@ -141,6 +144,10 @@ export default class CreatureStateService {
 
             trackedCreatureHtml += nameTemplate.replace('name', tc.name)
                 .replace(new RegExp('creatureIndex', 'g'), i);
+
+            if (tc.isConcentrating) {
+                trackedCreatureHtml = trackedCreatureHtml.replace('button-concentration', 'button-concentration active');
+            }
 
             tc.effects.forEach(b => {
                 if (b.roundDuration > 0) {

@@ -146,6 +146,27 @@ test('when the current creature is not active, then does not have active class',
     expect(result).toEqual(expect.not.stringContaining('active'));
 });
 
+test('when the creature is isConcentrating, then show active concentration', () => {
+    const creature0 = new TrackedCreature(1, 'Test1');
+    creature0.toggleConcentration();
+
+    let sut = new CreatureStateService(null, [creature0]);
+
+    const result = sut.buildTrackedCreaturesHtml();
+
+    expect(result).toEqual(expect.stringContaining('button-concentration active'));
+});
+
+test('when the creature is not isConcentrating, then show inactive concentration', () => {
+    const creature0 = new TrackedCreature(1, 'Test1');
+
+    let sut = new CreatureStateService(null, [creature0], 1);
+
+    const result = sut.buildTrackedCreaturesHtml();
+
+    expect(result).toEqual(expect.not.stringContaining('button-concentration active'));
+});
+
 test('when there are multiple creatures, then builds multiple html elements', () => {
     const creature0 = new TrackedCreature(1, 'Test1');
     const creature1 = new TrackedCreature(1, 'Test2');
