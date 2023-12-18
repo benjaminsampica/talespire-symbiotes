@@ -29,4 +29,9 @@ export default class ReceivedImagesState {
 
         return receivedImages;
     }
+
+    removeImage(id)
+    {
+        this.receivedImageParts = this.receivedImageParts.filter(rip => rip.id.toString() !== id);
+    }
 }

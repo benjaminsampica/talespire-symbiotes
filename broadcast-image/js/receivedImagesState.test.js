@@ -50,3 +50,16 @@ test("given multiple image parts, then rebuilds the image url.", () => {
     const expectedUrl = sut.getUniqueImages();
     expect(expectedUrl[0].url).toEqual(multiPartImageUrl);
 });
+
+test("given an image, when removed, then no longer exists.", () => {
+    let broadcastedImage = new BroadcastedImage(multiPartImageUrl);
+    let parts = broadcastedImage.getParts();
+
+    const sut = new ReceivedImagesState();
+
+    parts.forEach(p => sut.receiveImagePart(p));
+
+    sut.removeImage(parts[0].id);
+
+    expect(sut.receivedImageParts.length).toEqual(0);
+});

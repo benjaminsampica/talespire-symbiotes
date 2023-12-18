@@ -20,6 +20,9 @@
     "subscriptions": {
       "sync": {
         "onSyncMessage": "handleSyncEvents"
+      },
+      "symbiote": {
+        "onStateChangeEvent": "onStateChangeEventAsync"
       }
     }
   },

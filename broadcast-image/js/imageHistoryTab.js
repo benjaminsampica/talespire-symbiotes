@@ -26,6 +26,9 @@ export default class ImageHistoryTab {
                     <img src="${img.url}" class="historical-image" />
                     <div class="row">
                         <button id="button-rebroadcast" data-id="${img.id}">Rebroadcast</button>
+                        <button id="button-delete" data-id="${img.id}" style="background-color: var(--ts-color-danger);">
+                            X
+                        </button>
                     </div>
                 </div>
             `

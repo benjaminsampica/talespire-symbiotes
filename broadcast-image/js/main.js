@@ -35,6 +35,15 @@ document.addEventListener("click", function (e) {
     }
 });
 
+document.addEventListener("click", function (e) {
+    const target = e.target.closest("#button-delete");
+
+    if (target) {
+        receivedImagesState.removeImage(target.dataset.id);
+        imageHistoryTab.show();
+    }
+});
+
 window.handleSyncEvents = function handleSyncEvents(event) {
     let imagePart = JSON.parse(event.payload.str);
     receivedImagesState.receiveImagePart(imagePart);
