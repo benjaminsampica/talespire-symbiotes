@@ -37,13 +37,13 @@ export default class addCreatureEffectForm {
             this.creature.addEffect(name);
 
             document.getElementById('form').innerHTML = '';
-            InvalidStateService.resetInvalidState();
+            InvalidStateService.reset();
             this.onSubmitFormCallback();
         }
     }
 
     cancel() {
         document.getElementById('form').innerHTML = '';
-        InvalidStateService.resetInvalidState();
+        InvalidStateService.reset();
     }
 }

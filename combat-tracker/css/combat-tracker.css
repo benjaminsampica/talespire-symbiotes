@@ -115,7 +115,7 @@ vuplex-dropdown-container {
 }
 
 .condition-icon::before {
-    background-image: url('condition.png');
+    background-image: url('../img/condition.png');
 }
 
 .icon {
@@ -132,11 +132,11 @@ vuplex-dropdown-container {
 }
 
 .icon-effect::before {
-    background-image: url('effect.png');
+    background-image: url('../img/effect.png');
 }
 
 .icon-concentration::before {
-    background-image: url('concentration.png');
+    background-image: url('../img/concentration.png');
 }
 
 .icon-concentration.active {

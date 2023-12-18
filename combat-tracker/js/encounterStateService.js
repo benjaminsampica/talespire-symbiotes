@@ -115,7 +115,7 @@ async function startTrackingAsync() {
         InvalidStateService.setInvalidState("There must be 3 or more creatures in the initiative queue to start tracking.");
     }
     else {
-        InvalidStateService.resetInvalidState();
+        InvalidStateService.reset();
         refreshTrackedCreaturesDOM();
         triggerNewRound(true);
     }

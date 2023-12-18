@@ -13,6 +13,10 @@ export default class Effect {
         return effect;
     }
 
+    static removeCustomEffect(name) {
+        this.customEffects = this.customEffects.filter(c => name !== c.name);
+    }
+
     static baseEffects() {
         return [
             new Effect('Banishment', this.minutesAsRounds(1)),

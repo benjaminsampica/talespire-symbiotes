@@ -6,14 +6,45 @@
         <i class="ts-icon-book" style="padding-right: 5px;"></i>
         5e Combat Tracker
     </title>
-    <link rel="stylesheet" href="combat-tracker.css">
+    <link rel="stylesheet" href="css/combat-tracker.css">
+    <link rel="stylesheet" href="css/simple-grid.min.css">
     <script type="module" src="js/main.js"></script>
 </head>
 
 <body>
-    <h1 class="d-flex" style="justify-content: center;"><i class="ts-icon-d20"></i>5e Combat Tracker</h1>
-    <button onclick="startTrackingAsync()">Start Tracking</button>
-    <button id="button-add-custom-condition">Add Custom Condition</button>
+    <h1 class="d-flex" style="justify-content: center; margin-bottom: 0px;"><i class="ts-icon-d20"></i>
+        5e Combat Tracker
+    </h1>
+    <div class="row">
+        <div class="col-12">
+            <button onclick="startTrackingAsync()" class="w-100">Start Tracking</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <button id="button-add-custom-effect" class="w-100">
+                Add Custom Effect
+            </button>
+        </div>
+        <div class="col-6">
+            <button id="button-remove-custom-effect" class="w-100">
+                Remove Custom Effect
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <button id="button-add-custom-condition" class="w-100">
+                Add Custom Condition
+            </button>
+        </div>
+        <div class="col-6">
+            <button id="button-remove-custom-condition" class="w-100">
+                Remove Custom Condition
+            </button>
+        </div>
+    </div>
+
     <div id="invalid-state" class="d-none">
         <h3 style="display: flex; align-items: center; margin-top: 0px; gap: 5px;">
             <i class="ts-icon-warning"></i>
