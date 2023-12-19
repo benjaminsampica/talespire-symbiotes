@@ -17,7 +17,7 @@ export default class ImageHistoryTab {
     }
 
     buildHtml() {
-        const images = this.receivedImagesState.getUniqueImages();
+        const images = this.receivedImagesState.images;
 
         let html = '<div class="row">';
         images.forEach(img => {

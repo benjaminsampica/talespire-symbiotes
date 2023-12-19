@@ -1,10 +1,9 @@
 import BroadcastImageTab from './broadcastImageTab.js';
 import ImageHistoryTab from './imageHistoryTab.js';
-import ReceivedImagesState from './receivedImagesState.js';
+import SymbioteStateService from './symbioteStateService.js';
 
-const receivedImagesState = new ReceivedImagesState();
-const imageHistoryTab = new ImageHistoryTab(receivedImagesState);
-const broadcastImageTab = new BroadcastImageTab(receivedImagesState);
+const imageHistoryTab = new ImageHistoryTab(SymbioteStateService.receivedImagesState);
+const broadcastImageTab = new BroadcastImageTab(SymbioteStateService.receivedImagesState);
 
 document.querySelector("#button-reset-form").addEventListener("click", function (e) {
     broadcastImageTab.reset();
@@ -39,14 +38,14 @@ document.addEventListener("click", function (e) {
     const target = e.target.closest("#button-delete");
 
     if (target) {
-        receivedImagesState.removeImage(target.dataset.id);
+        SymbioteStateService.receivedImagesState.removeImage(target.dataset.id);
         imageHistoryTab.show();
     }
 });
 
 window.handleSyncEvents = function handleSyncEvents(event) {
     let imagePart = JSON.parse(event.payload.str);
-    receivedImagesState.receiveImagePart(imagePart);
+    SymbioteStateService.receivedImagesState.receiveImagePart(imagePart);
 
     broadcastImageTab.show();
     imageHistoryTab.hide();
@@ -54,7 +53,7 @@ window.handleSyncEvents = function handleSyncEvents(event) {
     document.getElementById("loading").classList.remove("d-none");
 
     if (imagePart.isLastPart) {
-        document.getElementById("broadcasted-image").src = receivedImagesState.buildImageUrlFromParts(imagePart.id);
+        document.getElementById("broadcasted-image").src = SymbioteStateService.receivedImagesState.createImageFromParts(imagePart.id).url;
         document.getElementById("loading").classList.add("d-none");
     }
 }

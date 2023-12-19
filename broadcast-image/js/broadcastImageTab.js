@@ -26,7 +26,7 @@ export default class BroadcastImageTab {
     }
 
     setImageUrl(broadcastedImageId) {
-        const url = this.receivedImagesState.buildImageUrlFromParts(broadcastedImageId);
+        const url = this.receivedImagesState.images.filter(i => i.id.toString() === broadcastedImageId)[0].url;
 
         document.getElementById("input-image").value = url;
     }

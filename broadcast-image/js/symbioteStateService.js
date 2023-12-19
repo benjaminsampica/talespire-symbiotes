@@ -1,4 +1,6 @@
-import ReceivedImagesState from "./receivedImagesState.js";
+import ReceivedImagesState from './receivedImagesState.js';
+
+const receivedImagesState = new ReceivedImagesState(addImageToCampaignStorage, removeImageFromCampaignStorage);
 
 async function addImageToCampaignStorage(image)
 {
@@ -7,8 +9,13 @@ async function addImageToCampaignStorage(image)
         .then((storedData) => {
             let newStoredData = JSON.parse(storedData || "{}");
             if (newStoredData.images == undefined) {
-                newStoredData.effects = [image];
+                newStoredData.images = [image];
             } else {
+                if(newStoredData.images.length >= 50)
+                {
+                    newStoredData.images.shift();
+                }
+
                 newStoredData.images.push(image);
             }
 
@@ -16,6 +23,17 @@ async function addImageToCampaignStorage(image)
         });
 }
 
+async function removeImageFromCampaignStorage(id)
+{
+    TS.localStorage.campaign
+        .getBlob()
+        .then((storedData) => {
+            let newStoredData = JSON.parse(storedData || "{}");
+            newStoredData.images =  newStoredData.images.filter(i => i.id.toString() !== id.toString());
+
+            TS.localStorage.campaign.setBlob(JSON.stringify(newStoredData));
+        });
+}
 
 async function loadStoredDataAsync() {
     let storedData = await TS.localStorage.campaign.getBlob();
@@ -23,9 +41,7 @@ async function loadStoredDataAsync() {
 
     for (let [key, value] of Object.entries(data)) {
         if (key == "images") {
-            value.forEach(image => {
-                ReceivedImagesState.(image);
-            });
+            receivedImagesState.initializeReceivedImages(value);
         }
     }
 }
@@ -34,6 +50,10 @@ async function onStateChangeEventAsync(msg) {
     if (msg.kind === "hasInitialized") {
         loadStoredDataAsync();
     }
+}
+
+export default {
+    receivedImagesState
 }
 
 window.onStateChangeEventAsync = onStateChangeEventAsync;
