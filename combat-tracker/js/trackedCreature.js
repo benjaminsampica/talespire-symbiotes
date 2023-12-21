@@ -8,6 +8,7 @@ export default class TrackedCreature {
         this.effects = [];
         this.conditions = [];
         this.isConcentrating = false;
+        this.initiative = null;
     }
 
     incrementRound() {
@@ -53,4 +54,9 @@ export default class TrackedCreature {
     toggleConcentration() {
         this.isConcentrating = !this.isConcentrating;
     };
+
+    updateInitiative(initiative)
+    {
+        this.initiative = initiative;
+    }
 }

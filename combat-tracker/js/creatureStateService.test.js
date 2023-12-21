@@ -27,7 +27,12 @@ test('new creatures map', () => {
 });
 
 test('existing creatures stay mapped', () => {
-    let existingTrackedCreatures = [new TrackedCreature(1, 'Test')];
+    var creature = new TrackedCreature(1, 'Test');
+    creature.initiative = 1;
+    creature.isConcentrating = true;
+    creature.addCondition('Test');
+    creature.addEffect('Test');
+    let existingTrackedCreatures = [creature];
     let sut = new CreatureStateService(null, existingTrackedCreatures);
     let items = [fakeTaleSpireQueueItem];
 
@@ -146,7 +151,7 @@ test('when the current creature is not active, then does not have active class',
     expect(result).toEqual(expect.not.stringContaining('active'));
 });
 
-test('when the creature is isConcentrating, then show active concentration', () => {
+test('when the creature is concentrating, then show active concentration', () => {
     const creature0 = new TrackedCreature(1, 'Test1');
     creature0.toggleConcentration();
 
@@ -157,7 +162,7 @@ test('when the creature is isConcentrating, then show active concentration', () 
     expect(result).toEqual(expect.stringContaining('button-concentration active'));
 });
 
-test('when the creature is not isConcentrating, then show inactive concentration', () => {
+test('when the creature is not concentrating, then show inactive concentration', () => {
     const creature0 = new TrackedCreature(1, 'Test1');
 
     let sut = new CreatureStateService(null, [creature0], 1);
@@ -165,6 +170,28 @@ test('when the creature is not isConcentrating, then show inactive concentration
     const result = sut.buildTrackedCreaturesHtml();
 
     expect(result).toEqual(expect.not.stringContaining('button-concentration active'));
+});
+
+test('when the creature has initiative, then shows initiative', () => {
+    const creature0 = new TrackedCreature(1, 'Test1');
+    creature0.updateInitiative(20);
+
+    let sut = new CreatureStateService(null, [creature0]);
+
+    const result = sut.buildTrackedCreaturesHtml();
+
+    expect(result).toEqual(expect.stringContaining('20'));
+});
+
+test('when the creature has no initiative, then shows no initiative', () => {
+    const creature0 = new TrackedCreature(1, 'Test1');
+    creature0.updateInitiative(null);
+
+    let sut = new CreatureStateService(null, [creature0]);
+
+    const result = sut.buildTrackedCreaturesHtml();
+
+    expect(result).toEqual(expect.not.stringContaining('creatureInitiative'));
 });
 
 test('when there are multiple creatures, then builds multiple html elements', () => {

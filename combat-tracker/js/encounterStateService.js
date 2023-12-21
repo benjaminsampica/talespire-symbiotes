@@ -107,6 +107,16 @@ document.addEventListener("click", function (e) {
     }
 });
 
+document.addEventListener("change", function (e) {
+    const target = e.target.closest("#input-creature-initiative");
+
+    if (target) {
+        let initiative = target.value;
+        let index = target.dataset.index;
+        creatureStateService.updateInitiative(index, initiative)
+    }
+});
+
 async function startTrackingAsync() {
     round = 0;
     await creatureStateService.populateTaleSpireCreaturesAsync();

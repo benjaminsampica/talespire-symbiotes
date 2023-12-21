@@ -24,8 +24,9 @@ export default class CreatureStateService {
                 const existingTrackedCreature = this.trackedCreatures.find(etc => etc.id == atc.id);
                 if (existingTrackedCreature !== undefined) {
                     atc.effects = existingTrackedCreature.effects;
-                    atc.round = existingTrackedCreature.round;
                     atc.conditions = existingTrackedCreature.conditions;
+                    atc.isConcentrating = existingTrackedCreature.isConcentrating;
+                    atc.initiative = existingTrackedCreature.initiative;
                 }
 
                 return atc;
@@ -93,6 +94,12 @@ export default class CreatureStateService {
         this.onCreatureChangedCallback();
     }
 
+    updateInitiative(creatureIndex, initiative) {
+        this.trackedCreatures[creatureIndex].updateInitiative(initiative);
+
+        this.onCreatureChangedCallback();
+    }
+
     buildTrackedCreaturesHtml() {
         const nameTemplate = `
         <h3 class="creature d-flex align-center">
@@ -100,6 +107,8 @@ export default class CreatureStateService {
             <button class='button-concentration' id='button-toggle-concentration' data-index='creatureIndex'>
                 <i class='icon icon-concentration ts-icon-small'></i>
             </button>
+            <i class='icon icon-standalone ts-icon-d20-grey ts-icon-small'></i>
+            <input type='number' style="width: 50px;" data-index='creatureIndex' name='input-creature-initiative' id='input-creature-initiative' placeholder='20' value='creatureInitiative'></input>
             <button value="creatureIndex" id='trigger-effect-form' class="ml-auto bg-effect">
                 <i class="icon icon-effect ts-icon-small"></i>
             </button>
@@ -144,6 +153,9 @@ export default class CreatureStateService {
 
             trackedCreatureHtml += nameTemplate.replace('name', tc.name)
                 .replace(new RegExp('creatureIndex', 'g'), i);
+                
+            trackedCreatureHtml = trackedCreatureHtml
+                .replace('creatureInitiative', tc.initiative ?? '');
 
             if (tc.isConcentrating) {
                 trackedCreatureHtml = trackedCreatureHtml.replace('button-concentration', 'button-concentration active');
