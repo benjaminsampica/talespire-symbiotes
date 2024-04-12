@@ -22,10 +22,15 @@
         </div>
     </div>
     <div id="broadcast-image-tab">
-        <textarea class="w-100" style="margin-bottom: 5px;" rows="5" required id="input-image"
+        <div style="display: flex; flex-wrap:wrap; gap: 5px">
+            <textarea class="w-100" rows="5" required id="input-image"
             placeholder="https://i.imgur.com/YPN2KBP.jpg"></textarea>
-        <button id="button-broadcast-image">Broadcast</button>
-        <button id="button-reset-form">Reset</button>
+            <button id="button-broadcast-image">Broadcast</button>
+            <button id="button-reset-form">Reset</button>
+            <small style="justify-self: end; align-self: end; display: flex; margin-left: auto;">
+                Images can be resized by dragging on the bottom right
+            </small>
+        </div>
         <div id="invalid-state" class="d-none">
             <h3 style="display: flex; align-items: center; margin-top: 0px; gap: 5px;">
                 <i class="ts-icon-warning"></i>
@@ -35,7 +40,9 @@
         <hr />
         <div>
             <h3 id="loading" class="d-none">Loading incoming image...</h3>
-            <img class="broadcasted-image" id="broadcasted-image" src="" />
+            <div class="broadcasted-image-container" id="broadcasted-image-container">
+                <img class="broadcasted-image d-none" id="broadcasted-image" src="" />
+            </div>
         </div>
     </div>
     <div id="image-history-tab" class="d-none"></div>

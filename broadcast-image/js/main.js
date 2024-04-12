@@ -53,7 +53,10 @@ window.handleSyncEvents = function handleSyncEvents(event) {
     document.getElementById("loading").classList.remove("d-none");
 
     if (imagePart.isLastPart) {
-        document.getElementById("broadcasted-image").src = SymbioteStateService.receivedImagesState.createImageFromParts(imagePart.id).url;
+        let broadcastedImageElement = document.getElementById("broadcasted-image");
+        broadcastedImageElement.src = SymbioteStateService.receivedImagesState.createImageFromParts(imagePart.id).url;
+        broadcastedImageElement.classList.remove("d-none");
+        document.getElementById("broadcasted-image-container").removeAttribute("style");
         document.getElementById("loading").classList.add("d-none");
     }
 }

@@ -18,7 +18,6 @@ export default class BroadcastImageTab {
 
                 TS.sync.send(JSON.stringify(imagePart), "board");
             });
-
         }
         else {
             this.setInvalidState(validationResult.message);
@@ -42,10 +41,14 @@ export default class BroadcastImageTab {
     }
 
     reset() {
+        let broadcastedImageElement = document.getElementById("broadcasted-image");
+        broadcastedImageElement.src = "";
+        broadcastedImageElement.classList.add("d-none");
+
         document.getElementById("input-image").value = "";
-        document.getElementById("broadcasted-image").src = "";
         document.getElementById("invalid-state").classList.add("d-none");
         document.getElementById("loading").classList.add("d-none");
+        document.getElementById("broadcasted-image-container").removeAttribute("style");
     }
 
     setInvalidState(validationMessage) {

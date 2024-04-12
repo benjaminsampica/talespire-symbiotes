@@ -22,8 +22,7 @@ export default class ImageHistoryTab {
         let html = '<div class="row">';
         images.forEach(img => {
             html += `
-                <div class="col-6 center">
-                    <img src="${img.url}" class="historical-image" />
+                <div class="col-6 center historical-image" style='background-image: url(${img.url})'>
                     <div class="row">
                         <button id="button-rebroadcast" data-id="${img.id}">Rebroadcast</button>
                         <button id="button-delete" data-id="${img.id}" style="background-color: var(--ts-color-danger);">
