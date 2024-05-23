@@ -48,8 +48,9 @@ export default class Effect {
     }
 
     static list() {
-        const newObjectCustomEffects = this.customEffects.map(ce => Object.assign({}, ce));
-        return this.baseEffects().concat(newObjectCustomEffects).sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        return this.customEffects
+            .map(ce => Object.assign({}, ce))
+            .sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
     }
 
     static minutesAsRounds(minutes) {

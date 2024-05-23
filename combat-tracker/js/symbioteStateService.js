@@ -150,16 +150,30 @@ async function loadStoredDataAsync() {
     let storedData = await TS.localStorage.campaign.getBlob();
     let data = JSON.parse(storedData || "{}");
 
+    const isFirstEverInitialization = Object.keys(data).length == 0;
+    if(isFirstEverInitialization)
+    {
+        data.conditions = Condition.baseConditions();
+        data.effects = Effect.baseEffects();
+        data.version = '1.0';
+
+        TS.localStorage.campaign.setBlob(JSON.stringify(data));
+    }
+
     for (let [key, value] of Object.entries(data)) {
-        if (key == "effects") {
-            value.forEach(effect => {
-                Effect.addCustomEffect(effect.name, effect.roundDuration);
-            });
-        }
-        if (key == "conditions") {
-            value.forEach(condition => {
-                Condition.addCustomCondition(condition.name);
-            });
+        switch(key) {
+            case 'version': 
+                break;
+            case 'effects': 
+                value.forEach(effect => {
+                    Effect.addCustomEffect(effect.name, effect.roundDuration);
+                });
+                break;
+            case 'conditions':
+                value.forEach(condition => {
+                    Condition.addCustomCondition(condition.name);
+                });
+                break;
         }
     }
 }

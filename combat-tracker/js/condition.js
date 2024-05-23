@@ -35,9 +35,8 @@ export default class Condition {
     }
 
     static list() {
-        const newObjectCustomConditions = this.customConditions.map(ce => Object.assign({}, ce));
-        return this.baseConditions()
-            .concat(newObjectCustomConditions)
+        return this.customConditions
+            .map(ce => Object.assign({}, ce))
             .sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
     }
 }
