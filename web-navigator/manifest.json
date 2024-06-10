@@ -1,0 +1,37 @@
+{
+  "manifestVersion": 1,
+  "name": "Web Navigator",
+  "entryPoint": "/web-navigator.html",
+  "summary": "A quick way to navigate to a web page within a Talespire Symbiote.",
+  "version": "0.0.1",
+  "descriptionFilePath": "/README.md",
+  "license": "MIT",
+  "about": {
+    "website": "https://github.com/benjaminsampica/talespire-symbiotes",
+    "authors": [
+      "Ben Sampica"
+    ]
+  },
+  "api": {
+    "version": "0.1",
+    "interop": {
+      "id": "6063e63e-bc68-45b2-985d-2205c6ddd8c2"
+    }
+  },
+  "controls": {
+    "navigation": true,
+    "reload": true
+  },
+  "icons": {
+    "64x64": "/64x64.png",
+    "notification": "/notification.png"
+  },
+  "environment": {
+    "webViewBackgroundColor": "#000000",
+    "extras": [
+      "fonts",
+      "icons",
+      "colorStyles"
+    ]
+  }
+}

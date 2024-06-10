@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <i class="ts-icon-broadcast" style="padding-right: 5px;"></i>
+        Web Navigator
+    </title>
+    <style>
+        .w-100 {
+            width: 100%;
+        }
+
+        body {
+            background-color: var(--ts-background-primary);
+            color: var(--ts-color-primary);
+            font-family: 'OptimusPrinceps', sans-serif;
+            margin: 0 auto 0 auto;
+            padding: 10px;
+        }
+
+        button,
+        input,
+        textarea {
+            background-color: var(--ts-background-secondary);
+            color: var(--ts-color-primary);
+            border: 1px solid var(--ts-accessibility-border);
+            border-radius: 4px;
+            font-size: 1.2em;
+            transition: ease-in-out 0.1s;
+        }
+
+        button:hover,
+        input:hover,
+        textarea:hover {
+            background-color: var(--ts-button-hover);
+            transition: ease-in-out 0.2s;
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid var(--ts-accessibility-focus);
+            outline-offset: -1px;
+            background-color: var(--ts-button-hover);
+            transition: outline-color 0s;
+        }
+
+        button {
+            background-color: var(--ts-button-background);
+        }
+
+        button:hover {
+            background-color: var(--ts-button-hover);
+        }
+
+        button:focus-visible {
+            background-color: var(--ts-button-hover);
+        }
+    </style>
+</head>
+
+<body>
+    <h1><i class="ts-icon-compass"></i> Web Navigator</h1>
+    <div style="display: flex; flex-wrap:wrap; gap: 5px">
+        <textarea class="w-100" rows="5" required id="href"
+        placeholder="www.google.com"></textarea>
+        <button onclick="navigate()">Go!</button>
+    </div>
+    <script>
+        function navigate()
+        {
+            let element = document.getElementById("href");
+            window.location.href = element.value;
+        }
+    </script>
+</body>
+
+</html>
