@@ -23,8 +23,7 @@
     "reload": true
   },
   "icons": {
-    "64x64": "/64x64.png",
-    "notification": "/notification.png"
+    "64x64": "/64x64.png"
   },
   "environment": {
     "webViewBackgroundColor": "#000000",
