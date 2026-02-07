@@ -27,7 +27,7 @@
   },
   "environment": {
     "webViewBackgroundColor": "#000000",
-    "loadTargetBehavior": "popup"
+    "loadTargetBehavior": "popup",
     "extras": [
       "fonts",
       "icons",
